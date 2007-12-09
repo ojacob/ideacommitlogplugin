@@ -1,0 +1,27 @@
+<!DOCTYPE idea-plugin PUBLIC "Plugin/DTD" "http://plugins.intellij.net/plugin.dtd">
+<idea-plugin>
+  <name>Commit Log</name>
+  <description><![CDATA[Creates a commit log for each commit executed, according to a user defined template.<br><br>
+  This is mainly aimed at those of us who have a non-vcs integrated issue tracking system (e.g. bugzilla) and who want to record exact details of associated commits within their issue updates.<br>
+  However, at present the plugin generates a simple textual log, based on a user-defined template, so this can be used for any purpose required, such as emailing or placing into documents.<br>
+  Ultimately it is intended to implement automated actions to be performed post commit, e.g. for integration with issue trackers, or emailing of logs.<br>
+  <br>
+  Settings can be edited on a per-project basis in Project Settings|Commit Log.<br>
+  <br>
+  To Do:<br>
+  * Allow automated actions to be defined for execution using the generated commit log.<br>
+  * Improve template editing.<br>
+  * Pre-commit log generation, and generation of commit comment.<br>
+  ]]></description>
+  <version>1.0</version>
+  <vendor email="anecdotesoftware@gmail.com" url="http://code.google.com/p/ideacommitlogplugin/">Nathan Brown</vendor>
+  <idea-version since-build="7364"/>
+  <project-components>
+    <component>
+      <implementation-class>com.anecdote.ideaplugins.commitlog.CommitLogProjectComponent</implementation-class>
+    </component>
+  </project-components>
+  <extensions xmlns="com.intellij">
+    <errorHandler implementation="nu.studer.idea.errorreporting.PluginErrorReportSubmitter"/>
+  </extensions>
+</idea-plugin>

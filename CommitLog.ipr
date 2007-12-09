@@ -1,0 +1,834 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project relativePaths="false" version="4">
+  <component name="AntConfiguration">
+    <defaultAnt bundledAnt="true" />
+  </component>
+  <component name="BuildJarProjectSettings">
+    <option name="BUILD_JARS_ON_MAKE" value="false" />
+  </component>
+  <component name="CVSRevisionGraphProjectComponent">
+    <option name="_useTwoTagConvention" value="true" />
+    <option name="_showTags" value="true" />
+    <option name="_tagNaming" value="TAG_$T_MERGE_$S_TO_$D" />
+    <option name="_tagFilter" value="" />
+    <option name="_branchFilter" />
+    <option name="_showRevisionFilter" value="false" />
+    <option name="_afterDateTimeFilter" value="false" />
+    <option name="_beforeDateTimeFilter" value="false" />
+    <option name="_afterDateTime" value="" />
+    <option name="_beforeDateTime" value="" />
+    <option name="_showTagFilter" value="false" />
+    <option name="_showBranchFilter" value="false" />
+  </component>
+  <component name="ChangeBrowserSettings">
+    <option name="MAIN_SPLITTER_PROPORTION" value="0.3" />
+    <option name="MESSAGES_SPLITTER_PROPORTION" value="0.8" />
+    <option name="USE_DATE_BEFORE_FILTER" value="false" />
+    <option name="USE_DATE_AFTER_FILTER" value="false" />
+    <option name="USE_CHANGE_BEFORE_FILTER" value="false" />
+    <option name="USE_CHANGE_AFTER_FILTER" value="false" />
+    <option name="DATE_BEFORE" value="" />
+    <option name="DATE_AFTER" value="" />
+    <option name="CHANGE_BEFORE" value="" />
+    <option name="CHANGE_AFTER" value="" />
+    <option name="USE_USER_FILTER" value="false" />
+    <option name="USER" value="" />
+  </component>
+  <component name="CodeStyleProjectProfileManger">
+    <option name="PROJECT_PROFILE" />
+    <option name="USE_PROJECT_LEVEL_SETTINGS" value="false" />
+  </component>
+  <component name="CodeStyleSettingsManager">
+    <option name="PER_PROJECT_SETTINGS" />
+    <option name="USE_PER_PROJECT_SETTINGS" value="false" />
+  </component>
+  <component name="CompilerConfiguration">
+    <option name="DEFAULT_COMPILER" value="Javac" />
+    <option name="DEPLOY_AFTER_MAKE" value="0" />
+    <excludeFromCompile>
+      <directory url="file://$PROJECT_DIR$/src/com/intellij" includeSubdirectories="true" />
+    </excludeFromCompile>
+    <resourceExtensions>
+      <entry name=".+\.(properties|xml|html|dtd|tld)" />
+      <entry name=".+\.(gif|png|jpeg|jpg)" />
+    </resourceExtensions>
+    <wildcardResourcePatterns>
+      <entry name="?*.properties" />
+      <entry name="?*.xml" />
+      <entry name="?*.gif" />
+      <entry name="?*.png" />
+      <entry name="?*.jpeg" />
+      <entry name="?*.jpg" />
+      <entry name="?*.html" />
+      <entry name="?*.dtd" />
+      <entry name="?*.tld" />
+      <entry name="*.txt" />
+    </wildcardResourcePatterns>
+  </component>
+  <component name="DependenciesAnalyzeManager">
+    <option name="myForwardDirection" value="false" />
+  </component>
+  <component name="DependencyValidationManager">
+    <option name="SKIP_IMPORT_STATEMENTS" value="false" />
+  </component>
+  <component name="EclipseCompilerSettings">
+    <option name="DEBUGGING_INFO" value="true" />
+    <option name="GENERATE_NO_WARNINGS" value="true" />
+    <option name="DEPRECATION" value="false" />
+    <option name="ADDITIONAL_OPTIONS_STRING" value="" />
+    <option name="MAXIMUM_HEAP_SIZE" value="128" />
+  </component>
+  <component name="EclipseEmbeddedCompilerSettings">
+    <option name="DEBUGGING_INFO" value="true" />
+    <option name="GENERATE_NO_WARNINGS" value="true" />
+    <option name="DEPRECATION" value="false" />
+    <option name="ADDITIONAL_OPTIONS_STRING" value="" />
+    <option name="MAXIMUM_HEAP_SIZE" value="128" />
+  </component>
+  <component name="EntryPointsManager">
+    <entry_points version="2.0" />
+  </component>
+  <component name="ErrorOptionsConfigurable.UI">
+    <option name="proportions">
+      <SplitterProportionsDataImpl />
+    </option>
+  </component>
+  <component name="EventSoundsProjectComponent">
+    <option name="_breakpointSoundEnabled" value="true" />
+    <option name="_buildErrorSoundEnabled" value="true" />
+    <option name="_buildSuccessSoundEnabled" value="true" />
+    <option name="_buildWarningSoundEnabled" value="true" />
+    <option name="_exceptionSoundEnabled" value="true" />
+    <option name="_findFailedSoundEnabled" value="true" />
+    <option name="_findSuccessSoundEnabled" value="true" />
+    <option name="_processStoppedSoundEnabled" value="true" />
+    <option name="_breakpointSound" value="/com/lgc/eventsounds/sounds/breakpoint.wav" />
+    <option name="_buildErrorSound" value="/com/lgc/eventsounds/sounds/buildError.wav" />
+    <option name="_buildSuccessSound" value="/com/lgc/eventsounds/sounds/buildSuccess.wav" />
+    <option name="_buildWarningSound" value="/com/lgc/eventsounds/sounds/buildWarning.wav" />
+    <option name="_exceptionSound" value="/com/lgc/eventsounds/sounds/exception.wav" />
+    <option name="_findFailedSound" value="/com/lgc/eventsounds/sounds/findFailed.wav" />
+    <option name="_findSuccessSound" value="/com/lgc/eventsounds/sounds/findSuccess.wav" />
+    <option name="_processStoppedSound" value="/com/lgc/eventsounds/sounds/processStopped.wav" />
+  </component>
+  <component name="ExportToHTMLSettings">
+    <option name="PRINT_LINE_NUMBERS" value="false" />
+    <option name="OPEN_IN_BROWSER" value="false" />
+    <option name="OUTPUT_DIRECTORY" />
+  </component>
+  <component name="IdProvider" IDEtalkID="F31544BFE10E992A54953AAB95AA08C2" />
+  <component name="InspectionProjectProfileManager">
+    <option name="PROJECT_PROFILE" value="Project Default" />
+    <option name="USE_PROJECT_LEVEL_SETTINGS" value="false" />
+    <scopes />
+    <profiles>
+      <profile version="1.0" is_locked="false">
+        <option name="myName" value="Project Default" />
+        <option name="myLocal" value="false" />
+        <inspection_tool class="NonProtectedConstructorInAbstractClass" level="WARNING" enabled="true">
+          <option name="m_ignoreNonPublicClasses" value="false" />
+        </inspection_tool>
+        <inspection_tool class="UnnecessaryQualifierForThis" level="WARNING" enabled="true" />
+        <inspection_tool class="AssignmentUsedAsCondition" level="WARNING" enabled="true" />
+        <inspection_tool class="ConstantNamingConvention" level="WARNING" enabled="true">
+          <option name="m_regex" value="[A-Z_\d]*" />
+          <option name="m_minLength" value="5" />
+          <option name="m_maxLength" value="32" />
+        </inspection_tool>
+        <inspection_tool class="UnnecessaryFullyQualifiedName" level="WARNING" enabled="true">
+          <option name="m_ignoreJavadoc" value="false" />
+        </inspection_tool>
+        <inspection_tool class="UnnecessaryLabelOnBreakStatement" level="WARNING" enabled="false" />
+        <inspection_tool class="ProtectedField" level="WARNING" enabled="true" />
+        <inspection_tool class="RedundantImport" level="WARNING" enabled="true" />
+        <inspection_tool class="UnconditionalWait" level="WARNING" enabled="true" />
+        <inspection_tool class="UnusedImport" level="WARNING" enabled="true" />
+        <inspection_tool class="ThreadRun" level="WARNING" enabled="true" />
+        <inspection_tool class="NonSynchronizedMethodOverridesSynchronizedMethod" level="WARNING" enabled="true" />
+        <inspection_tool class="ParameterHidingMemberVariable" level="WARNING" enabled="true">
+          <option name="m_ignoreInvisibleFields" value="true" />
+          <option name="m_ignoreStaticMethodParametersHidingInstanceFields" value="false" />
+          <option name="m_ignoreForConstructors" value="false" />
+          <option name="m_ignoreForPropertySetters" value="false" />
+          <option name="m_ignoreForAbstractMethods" value="false" />
+        </inspection_tool>
+        <inspection_tool class="SynchronizeOnThis" level="WARNING" enabled="true" />
+        <inspection_tool class="UtilityClassWithoutPrivateConstructor" level="WARNING" enabled="true">
+          <option name="ignoreClassesWithOnlyMain" value="false" />
+        </inspection_tool>
+        <inspection_tool class="ThrowCaughtLocally" level="WARNING" enabled="true">
+          <option name="ignoreRethrownExceptions" value="false" />
+        </inspection_tool>
+        <inspection_tool class="EqualsUsesNonFinalVariable" level="WARNING" enabled="true" />
+        <inspection_tool class="ExceptionFromCatchWhichDoesntWrap" level="ERROR" enabled="true">
+          <option name="ignoreGetMessage" value="false" />
+        </inspection_tool>
+        <inspection_tool class="MultiplyOrDivideByPowerOfTwo" level="WARNING" enabled="true">
+          <option name="checkDivision" value="false" />
+        </inspection_tool>
+        <inspection_tool class="MissortedModifiers" level="WARNING" enabled="true">
+          <option name="m_requireAnnotationsFirst" value="true" />
+        </inspection_tool>
+        <inspection_tool class="ThreadDeathRethrown" level="WARNING" enabled="true" />
+        <inspection_tool class="OverlyStrongTypeCast" level="WARNING" enabled="true">
+          <option name="ignoreInMatchingInstanceof" value="false" />
+        </inspection_tool>
+        <inspection_tool class="BusyWait" level="WARNING" enabled="true" />
+        <inspection_tool class="IntegerDivisionInFloatingPointContext" level="WARNING" enabled="true" />
+        <inspection_tool class="CovariantEquals" level="ERROR" enabled="true" />
+        <inspection_tool class="LengthOneStringsInConcatenation" level="WARNING" enabled="true" />
+        <inspection_tool class="DeclareCollectionAsInterface" level="WARNING" enabled="true">
+          <option name="ignoreLocalVariables" value="false" />
+          <option name="ignorePrivateMethodsAndFields" value="false" />
+        </inspection_tool>
+        <inspection_tool class="WaitNotInLoop" level="WARNING" enabled="true" />
+        <inspection_tool class="NonShortCircuitBoolean" level="WARNING" enabled="true" />
+        <inspection_tool class="FallthruInSwitchStatement" level="WARNING" enabled="true" />
+        <inspection_tool class="HashCodeUsesNonFinalVariable" level="WARNING" enabled="true" />
+        <inspection_tool class="NegatedIfElse" level="WARNING" enabled="true">
+          <option name="m_ignoreNegatedNullComparison" value="true" />
+        </inspection_tool>
+        <inspection_tool class="UnusedLabel" level="WARNING" enabled="false" />
+        <inspection_tool class="ThreadDumpStack" level="WARNING" enabled="true" />
+        <inspection_tool class="InnerClassVariableHidesOuterClassVariable" level="WARNING" enabled="true">
+          <option name="m_ignoreInvisibleFields" value="true" />
+        </inspection_tool>
+        <inspection_tool class="LongLiteralsEndingWithLowercaseL" level="WARNING" enabled="true" />
+        <inspection_tool class="StaticVariableNamingConvention" level="WARNING" enabled="true">
+          <option name="m_regex" value="s_[a-z][A-Za-z\d]*" />
+          <option name="m_minLength" value="5" />
+          <option name="m_maxLength" value="32" />
+        </inspection_tool>
+        <inspection_tool class="ThrowFromFinallyBlock" level="ERROR" enabled="true" />
+        <inspection_tool class="FieldAccessedSynchronizedAndUnsynchronized" level="WARNING" enabled="true">
+          <option name="countGettersAndSetters" value="false" />
+        </inspection_tool>
+        <inspection_tool class="CatchGenericClass" level="WARNING" enabled="true" />
+        <inspection_tool class="ZeroLengthArrayInitialization" level="WARNING" enabled="true" />
+        <inspection_tool class="PackageVisibleField" level="WARNING" enabled="true" />
+        <inspection_tool class="ObsoleteCollection" level="WARNING" enabled="true">
+          <option name="ignoreLibraryArguments" value="false" />
+        </inspection_tool>
+        <inspection_tool class="PublicField" level="WARNING" enabled="true">
+          <option name="ignoreEnums" value="false" />
+        </inspection_tool>
+        <inspection_tool class="FloatingPointEquality" level="WARNING" enabled="true" />
+        <inspection_tool class="MethodNamesDifferOnlyByCase" level="WARNING" enabled="true" />
+        <inspection_tool class="NoExplicitFinalizeCalls" level="WARNING" enabled="false" />
+        <inspection_tool class="MisspelledHashcode" level="ERROR" enabled="true" />
+        <inspection_tool class="StringBufferMustHaveInitialCapacity" level="WARNING" enabled="true" />
+        <inspection_tool class="MethodMayBeStatic" level="WARNING" enabled="true">
+          <option name="m_onlyPrivateOrFinal" value="false" />
+          <option name="m_ignoreEmptyMethods" value="true" />
+        </inspection_tool>
+        <inspection_tool class="CStyleArrayDeclaration" level="WARNING" enabled="true" />
+        <inspection_tool class="FinalMethodInFinalClass" level="WARNING" enabled="true" />
+        <inspection_tool class="NakedNotify" level="WARNING" enabled="true" />
+        <inspection_tool class="UpperCaseFieldNameNotConstant" level="WARNING" enabled="true" />
+        <inspection_tool class="UnnecessaryLabelOnContinueStatement" level="WARNING" enabled="false" />
+        <inspection_tool class="AbstractMethodCallInConstructor" level="WARNING" enabled="true" />
+        <inspection_tool class="SynchronizeOnNonFinalField" level="ERROR" enabled="true" />
+        <inspection_tool class="NoopMethodInAbstractClass" level="INFO" enabled="true" />
+        <inspection_tool class="SystemGC" level="WARNING" enabled="true" />
+        <inspection_tool class="ClassEscapesItsScope" level="WARNING" enabled="true" />
+        <inspection_tool class="WhileLoopSpinsOnField" level="WARNING" enabled="true">
+          <option name="ignoreNonEmtpyLoops" value="false" />
+        </inspection_tool>
+        <inspection_tool class="LocalVariableHidingMemberVariable" level="WARNING" enabled="true">
+          <option name="m_ignoreInvisibleFields" value="true" />
+          <option name="m_ignoreStaticMethods" value="true" />
+        </inspection_tool>
+        <inspection_tool class="UnnecessaryBlockStatement" level="WARNING" enabled="true" />
+        <inspection_tool class="EmptyFinallyBlock" level="ERROR" enabled="true" />
+        <inspection_tool class="AbstractMethodOverridesConcreteMethod" level="WARNING" enabled="true" />
+        <inspection_tool class="LiteralAsArgToStringEquals" level="WARNING" enabled="true" />
+        <inspection_tool class="InnerClassMayBeStatic" level="WARNING" enabled="true" />
+        <inspection_tool class="StringBufferToStringInConcatenation" level="WARNING" enabled="true" />
+        <inspection_tool class="UtilityClassWithPublicConstructor" level="WARNING" enabled="true" />
+        <inspection_tool class="ForLoopReplaceableByWhile" level="WARNING" enabled="true">
+          <option name="m_ignoreLoopsWithoutConditions" value="false" />
+        </inspection_tool>
+        <inspection_tool class="ThrowablePrintStackTrace" level="WARNING" enabled="true" />
+        <inspection_tool class="AssignmentToForLoopParameter" level="WARNING" enabled="true">
+          <option name="m_checkForeachParameters" value="false" />
+        </inspection_tool>
+        <inspection_tool class="ClassNameDiffersFromFileName" level="ERROR" enabled="true" />
+        <inspection_tool class="ProtectedMemberInFinalClass" level="WARNING" enabled="true" />
+        <inspection_tool class="TextLabelInSwitchStatement" level="ERROR" enabled="true" />
+        <inspection_tool class="UnnecessaryInterfaceModifier" level="WARNING" enabled="true" />
+        <inspection_tool class="ConfusingMainMethod" level="WARNING" enabled="true" />
+        <inspection_tool class="OctalLiteral" level="WARNING" enabled="false" />
+        <inspection_tool class="NestedAssignment" level="WARNING" enabled="true" />
+        <inspection_tool class="WaitNotInSynchronizedContext" level="WARNING" enabled="true" />
+        <inspection_tool class="CompareToUsesNonFinalVariable" level="WARNING" enabled="true" />
+        <inspection_tool class="UnqualifiedStaticUsage" level="WARNING" enabled="true">
+          <option name="m_ignoreStaticFieldAccesses" value="false" />
+          <option name="m_ignoreStaticMethodCalls" value="false" />
+          <option name="m_ignoreStaticAccessFromStaticContext" value="false" />
+        </inspection_tool>
+        <inspection_tool class="ObjectNotify" level="ERROR" enabled="true" />
+        <inspection_tool class="CloneCallsConstructors" level="WARNING" enabled="true" />
+        <inspection_tool class="ThreadStartInConstruction" level="WARNING" enabled="true" />
+        <inspection_tool class="UnnecessaryThis" level="WARNING" enabled="true" />
+        <inspection_tool class="MisspelledCompareTo" level="ERROR" enabled="true" />
+        <inspection_tool class="NotifyNotInSynchronizedContext" level="WARNING" enabled="true" />
+        <inspection_tool class="TypeParameterExtendsObject" level="WARNING" enabled="false" />
+        <inspection_tool class="DoubleCheckedLocking" level="ERROR" enabled="true">
+          <option name="ignoreOnVolatileVariables" value="false" />
+        </inspection_tool>
+        <inspection_tool class="CovariantCompareTo" level="ERROR" enabled="true" />
+        <inspection_tool class="FinalizeCallsSuperFinalize" level="WARNING" enabled="false">
+          <option name="m_ignoreForObjectSubclasses" value="false" />
+        </inspection_tool>
+        <inspection_tool class="WaitWhileHoldingTwoLocks" level="WARNING" enabled="true" />
+        <inspection_tool class="EmptySynchronizedStatement" level="WARNING" enabled="true" />
+        <inspection_tool class="ForLoopThatDoesntUseLoopVariable" level="WARNING" enabled="true" />
+        <inspection_tool class="InstanceofThis" level="WARNING" enabled="true" />
+        <inspection_tool class="StringConcatenationInLoops" level="WARNING" enabled="true">
+          <option name="m_ignoreUnlessAssigned" value="false" />
+        </inspection_tool>
+        <inspection_tool class="ExtendsObject" level="WARNING" enabled="false" />
+        <inspection_tool class="SerialVersionUIDNotStaticFinal" level="WARNING" enabled="true" />
+        <inspection_tool class="EmptyTryBlock" level="ERROR" enabled="true" />
+        <inspection_tool class="StringEqualsEmptyString" level="WARNING" enabled="true" />
+        <inspection_tool class="FieldMayBeStatic" level="WARNING" enabled="true" />
+        <inspection_tool class="ClassMayBeInterface" level="WARNING" enabled="true" />
+        <inspection_tool class="AbstractClassWithoutAbstractMethods" level="WARNING" enabled="true" />
+        <inspection_tool class="DefaultNotLastCaseInSwitch" level="WARNING" enabled="true" />
+        <inspection_tool class="NestedSynchronizedStatement" level="WARNING" enabled="true" />
+        <inspection_tool class="ConfusingElse" level="WARNING" enabled="true" />
+        <inspection_tool class="PublicFieldAccessedInSynchronizedContext" level="WARNING" enabled="true" />
+        <inspection_tool class="AssignmentToCatchBlockParameter" level="WARNING" enabled="true" />
+        <inspection_tool class="NegatedConditional" level="WARNING" enabled="true">
+          <option name="m_ignoreNegatedNullComparison" value="true" />
+        </inspection_tool>
+        <inspection_tool class="ReplaceAssignmentWithOperatorAssignment" level="WARNING" enabled="true">
+          <option name="ignoreLazyOperators" value="true" />
+          <option name="ignoreObscureOperators" value="false" />
+        </inspection_tool>
+        <inspection_tool class="TailRecursion" level="WARNING" enabled="true" />
+        <inspection_tool class="InstanceVariableNamingConvention" level="WARNING" enabled="true">
+          <option name="m_regex" value="m_[a-z][A-Za-z\d]*" />
+          <option name="m_minLength" value="5" />
+          <option name="m_maxLength" value="32" />
+        </inspection_tool>
+        <inspection_tool class="FieldHidesSuperclassField" level="WARNING" enabled="true">
+          <option name="m_ignoreInvisibleFields" value="true" />
+        </inspection_tool>
+        <inspection_tool class="CloneableImplementsClone" level="WARNING" enabled="true">
+          <option name="m_ignoreCloneableDueToInheritance" value="false" />
+        </inspection_tool>
+        <inspection_tool class="TodoComment" level="WARNING" enabled="true" />
+        <inspection_tool class="ConditionalExpressionWithIdenticalBranches" level="WARNING" enabled="true" />
+        <inspection_tool class="DuplicateCondition" level="WARNING" enabled="true">
+          <option name="ignoreMethodCalls" value="false" />
+        </inspection_tool>
+        <inspection_tool class="IfStatementWithIdenticalBranches" level="WARNING" enabled="true" />
+        <inspection_tool class="CanBeFinal" level="WARNING" enabled="false">
+          <option name="REPORT_CLASSES" value="false" />
+          <option name="REPORT_METHODS" value="false" />
+          <option name="REPORT_FIELDS" value="true" />
+        </inspection_tool>
+        <inspection_tool class="EmptyMethod" level="WARNING" enabled="false" />
+        <inspection_tool class="NonFinalFieldOfException" level="WARNING" enabled="true" />
+        <inspection_tool class="BadExceptionCaught" level="WARNING" enabled="true">
+          <option name="exceptionsString" value="java.lang.NullPointerException,java.lang.IllegalMonitorStateException,java.lang.ArrayIndexOutOfBoundsException" />
+        </inspection_tool>
+        <inspection_tool class="BadExceptionDeclared" level="WARNING" enabled="true">
+          <option name="exceptionsString" value="java.lang.Throwable,java.lang.Exception,java.lang.Error,java.lang.RuntimeException,java.lang.NullPointerException,java.lang.ClassCastException,java.lang.ArrayIndexOutOfBoundsException" />
+          <option name="ignoreTestCases" value="false" />
+        </inspection_tool>
+        <inspection_tool class="JavaDoc" level="WARNING" enabled="false">
+          <option name="TOP_LEVEL_CLASS_OPTIONS">
+            <value>
+              <option name="ACCESS_JAVADOC_REQUIRED_FOR" value="none" />
+              <option name="REQUIRED_TAGS" value="" />
+            </value>
+          </option>
+          <option name="INNER_CLASS_OPTIONS">
+            <value>
+              <option name="ACCESS_JAVADOC_REQUIRED_FOR" value="none" />
+              <option name="REQUIRED_TAGS" value="" />
+            </value>
+          </option>
+          <option name="METHOD_OPTIONS">
+            <value>
+              <option name="ACCESS_JAVADOC_REQUIRED_FOR" value="none" />
+              <option name="REQUIRED_TAGS" value="@return@param@throws or @exception" />
+            </value>
+          </option>
+          <option name="FIELD_OPTIONS">
+            <value>
+              <option name="ACCESS_JAVADOC_REQUIRED_FOR" value="none" />
+              <option name="REQUIRED_TAGS" value="" />
+            </value>
+          </option>
+          <option name="IGNORE_DEPRECATED" value="false" />
+          <option name="IGNORE_JAVADOC_PERIOD" value="true" />
+          <option name="myAdditionalJavadocTags" value="" />
+        </inspection_tool>
+        <inspection_tool class="ParameterNameDiffersFromOverriddenParameter" level="WARNING" enabled="true">
+          <option name="m_ignoreSingleCharacterNames" value="false" />
+          <option name="m_ignoreOverridesOfLibraryMethods" value="false" />
+        </inspection_tool>
+        <inspection_tool class="ComparisonToNaN" level="WARNING" enabled="true" />
+        <inspection_tool class="CastToIncompatibleInterface" level="WARNING" enabled="true" />
+        <inspection_tool class="CollectionAddedToSelf" level="WARNING" enabled="true" />
+        <inspection_tool class="InstanceofIncompatibleInterface" level="WARNING" enabled="true" />
+        <inspection_tool class="ArchaicSystemPropertyAccess" level="WARNING" enabled="true" />
+        <inspection_tool class="UseOfPropertiesAsHashtable" level="WARNING" enabled="true" />
+        <inspection_tool class="ArithmeticOnVolatileField" level="WARNING" enabled="true" />
+        <inspection_tool class="ThreadStopSuspendResume" level="WARNING" enabled="true" />
+        <inspection_tool class="ThreadYield" level="WARNING" enabled="true" />
+        <inspection_tool class="SleepWhileHoldingLock" level="WARNING" enabled="true" />
+        <inspection_tool class="ExtendsThread" level="WARNING" enabled="true" />
+        <inspection_tool class="ThreadWithDefaultRunMethod" level="WARNING" enabled="true" />
+        <inspection_tool class="ClassReferencesSubclass" level="WARNING" enabled="true" />
+        <inspection_tool class="TooBroadScope" level="INFO" enabled="true">
+          <option name="m_allowConstructorAsInitializer" value="false" />
+          <option name="m_onlyLookAtBlocks" value="false" />
+        </inspection_tool>
+        <inspection_tool class="StaticVariableUninitializedUse" level="WARNING" enabled="true">
+          <option name="m_ignorePrimitives" value="false" />
+        </inspection_tool>
+        <inspection_tool class="NonThreadSafeLazyInitialization" level="WARNING" enabled="true" />
+        <inspection_tool class="StringBufferReplaceableByString" level="WARNING" enabled="true" />
+        <inspection_tool class="TrivialStringConcatenation" level="WARNING" enabled="true" />
+        <inspection_tool class="IOResource" level="WARNING" enabled="true" />
+        <inspection_tool class="ChannelResource" level="WARNING" enabled="true" />
+        <inspection_tool class="Deprecation" level="WARNING" enabled="false" />
+        <inspection_tool class="HardCodedStringLiteral" level="WARNING" enabled="false">
+          <option name="ignoreForAssertStatements" value="true" />
+          <option name="ignoreForExceptionConstructors" value="true" />
+          <option name="ignoreForSpecifiedExceptionConstructors" value="" />
+          <option name="ignoreForJUnitAsserts" value="true" />
+          <option name="ignoreForClassReferences" value="true" />
+          <option name="ignoreForPropertyKeyReferences" value="true" />
+          <option name="ignoreForNonAlpha" value="true" />
+          <option name="ignoreAssignedToConstants" value="false" />
+          <option name="ignoreToString" value="false" />
+          <option name="nonNlsCommentPattern" value="NON-NLS" />
+        </inspection_tool>
+        <inspection_tool class="IncrementDecrementUsedAsExpression" level="WARNING" enabled="true" />
+        <inspection_tool class="MissingDeprecatedAnnotation" level="WARNING" enabled="true" />
+        <inspection_tool class="MissingOverrideAnnotation" level="WARNING" enabled="true">
+          <option name="useJdk6Rules" value="false" />
+        </inspection_tool>
+        <inspection_tool class="RedundantMethodOverride" level="WARNING" enabled="true" />
+        <inspection_tool class="RefusedBequest" level="WARNING" enabled="false">
+          <option name="ignoreEmptySuperMethods" value="false" />
+        </inspection_tool>
+        <inspection_tool class="InstanceVariableInitialization" level="WARNING" enabled="false">
+          <option name="m_ignorePrimitives" value="false" />
+        </inspection_tool>
+        <inspection_tool class="InstanceVariableUninitializedUse" level="WARNING" enabled="false">
+          <option name="m_ignorePrimitives" value="false" />
+        </inspection_tool>
+        <inspection_tool class="NonFinalStaticVariableUsedInClassInitialization" level="WARNING" enabled="true" />
+        <inspection_tool class="StaticVariableInitialization" level="WARNING" enabled="true">
+          <option name="m_ignorePrimitives" value="false" />
+        </inspection_tool>
+        <inspection_tool class="SimplifiableIfStatement" level="WARNING" enabled="false" />
+        <inspection_tool class="IndexOfReplaceableByContains" level="WARNING" enabled="true" />
+        <inspection_tool class="CssNoGenericFontName" level="WARNING" enabled="false" />
+        <inspection_tool class="CssOverwrittenProperties" level="WARNING" enabled="false" />
+        <inspection_tool class="CssUnitlessNumber" level="WARNING" enabled="false" />
+        <inspection_tool class="MapReplaceableByEnumMap" level="WARNING" enabled="true" />
+        <inspection_tool class="SetReplaceableByEnumSet" level="WARNING" enabled="true" />
+        <inspection_tool class="LengthOneStringInIndexOf" level="WARNING" enabled="true" />
+        <inspection_tool class="SizeReplaceableByIsEmpty" level="WARNING" enabled="true">
+          <option name="ignoreNegations" value="false" />
+        </inspection_tool>
+        <inspection_tool class="StringBufferReplaceableByStringBuilder" level="WARNING" enabled="true" />
+        <inspection_tool class="CastConflictsWithInstanceof" level="WARNING" enabled="true" />
+        <inspection_tool class="ResultOfObjectAllocationIgnored" level="WARNING" enabled="true" />
+        <inspection_tool class="StaticCallOnSubclass" level="WARNING" enabled="true" />
+        <inspection_tool class="ConditionSignal" level="WARNING" enabled="true" />
+        <inspection_tool class="AwaitNotInLoop" level="WARNING" enabled="true" />
+        <inspection_tool class="AwaitWithoutCorrespondingSignal" level="WARNING" enabled="true" />
+        <inspection_tool class="SafeLock" level="WARNING" enabled="true" />
+        <inspection_tool class="NotifyWithoutCorrespondingWait" level="WARNING" enabled="true" />
+        <inspection_tool class="SignalWithoutCorrespondingAwait" level="WARNING" enabled="true" />
+        <inspection_tool class="NotifyCalledOnCondition" level="WARNING" enabled="true" />
+        <inspection_tool class="SynchronizeOnLock" level="WARNING" enabled="true" />
+        <inspection_tool class="VolatileArrayField" level="WARNING" enabled="true" />
+        <inspection_tool class="VolatileLongOrDoubleField" level="WARNING" enabled="true" />
+        <inspection_tool class="WaitCalledOnCondition" level="WARNING" enabled="true" />
+        <inspection_tool class="WaitWithoutCorrespondingNotify" level="WARNING" enabled="true" />
+        <inspection_tool class="UnusedCatchParameter" level="WARNING" enabled="true">
+          <option name="m_ignoreCatchBlocksWithComments" value="false" />
+          <option name="m_ignoreTestCases" value="false" />
+          <option name="m_ignoreIgnoreParameter" value="true" />
+        </inspection_tool>
+        <inspection_tool class="UnnecessaryLocalVariable" level="WARNING" enabled="true">
+          <option name="m_ignoreImmediatelyReturnedVariables" value="false" />
+          <option name="m_ignoreAnnotatedVariables" value="false" />
+        </inspection_tool>
+        <inspection_tool class="DuplicateThrows" level="WARNING" enabled="false" />
+        <inspection_tool class="EnumerationCanBeIteration" level="WARNING" enabled="true" />
+        <inspection_tool class="ComparableImplementedButEqualsNotOverridden" level="WARNING" enabled="true" />
+        <inspection_tool class="ListIndexOfReplaceableByContains" level="WARNING" enabled="true" />
+        <inspection_tool class="PointlessIndexOfComparison" level="WARNING" enabled="true" />
+        <inspection_tool class="SimplifiableJUnitAssertion" level="WARNING" enabled="true" />
+        <inspection_tool class="TestMethodWithoutAssertion" level="WARNING" enabled="true" />
+        <inspection_tool class="MisorderedAssertEqualsParameters" level="WARNING" enabled="true" />
+        <inspection_tool class="EqualsHashCodeCalledOnUrl" level="WARNING" enabled="true" />
+        <inspection_tool class="CollectionContainsUrl" level="WARNING" enabled="true" />
+        <inspection_tool class="SuspiciousIndentAfterControlStatement" level="WARNING" enabled="true" />
+        <inspection_tool class="SameParameterValue" level="WARNING" enabled="false" />
+        <inspection_tool class="WeakerAccess" level="WARNING" enabled="false">
+          <option name="SUGGEST_PACKAGE_LOCAL_FOR_MEMBERS" value="true" />
+          <option name="SUGGEST_PACKAGE_LOCAL_FOR_TOP_CLASSES" value="true" />
+          <option name="SUGGEST_PRIVATE_FOR_INNERS" value="false" />
+        </inspection_tool>
+        <inspection_tool class="SameReturnValue" level="WARNING" enabled="false" />
+        <inspection_tool class="RedundantThrows" level="WARNING" enabled="false" />
+        <inspection_tool class="UnnecessaryModuleDependencyInspection" level="WARNING" enabled="false" />
+        <inspection_tool class="UnusedDeclaration" level="WARNING" enabled="false">
+          <option name="ADD_MAINS_TO_ENTRIES" value="true" />
+          <option name="ADD_APPLET_TO_ENTRIES" value="true" />
+          <option name="ADD_SERVLET_TO_ENTRIES" value="true" />
+          <option name="ADD_NONJAVA_TO_ENTRIES" value="true" />
+          <option name="ADDITIONAL_ANNOTATIONS">
+            <value>
+              <list size="0" />
+            </value>
+          </option>
+          <option name="ADD_JUNIT_TO_ENTRIES" value="true" />
+        </inspection_tool>
+        <inspection_tool class="UnusedParameters" level="WARNING" enabled="false" />
+        <inspection_tool class="UnusedReturnValue" level="WARNING" enabled="false" />
+        <inspection_tool class="ReplaceAllDot" level="WARNING" enabled="true" />
+        <inspection_tool class="EmptyInitializer" level="WARNING" enabled="true" />
+        <inspection_tool class="MisspelledEquals" level="WARNING" enabled="true" />
+        <inspection_tool class="SubtractionInCompareTo" level="WARNING" enabled="true" />
+        <inspection_tool class="MisspelledToString" level="WARNING" enabled="true" />
+        <inspection_tool class="ResultSetIndexZero" level="WARNING" enabled="true" />
+        <inspection_tool class="AccessToStaticFieldLockedOnInstance" level="WARNING" enabled="true" />
+        <inspection_tool class="SSBasedInspection" level="WARNING" enabled="true" />
+        <inspection_tool class="FieldUsedInOnlyOneMethod" level="WARNING" enabled="false" />
+        <inspection_tool class="DuplicateTypeCastInMethod" level="INFO" enabled="true" />
+        <inspection_tool class="DuplicateGetterCallInMethod" level="WARNING" enabled="true" />
+        <inspection_tool class="SetterSequence" level="WARNING" enabled="false" />
+      </profile>
+    </profiles>
+    <list size="0" />
+  </component>
+  <component name="InspectorGeneralConfiguration">
+    <option name="MAKE_CLASSES_AND_METHODS_FINAL_IF_NOT_OVERRIDDEN" value="false" />
+    <option name="PREFER_FINAL_FOR_PARAMETERS" value="false" />
+    <option name="PREFER_FINAL_FOR_LOCAL_VARIABLES" value="true" />
+    <option name="ANNOTATE_LOCAL_VARIABLES" value="false" />
+    <option name="PASSES_FOR_NULLITY_INFERENCE" value="3" />
+    <option name="PASSES_FOR_TYPE_INFERENCE" value="3" />
+    <option name="USE_CONTINUE_TO_FLATTEN_LOOP_STRUCTURES" value="true" />
+    <option name="RETURN_POLICY" value="0" />
+    <option name="REPLACE_CONDITIONAL_EXPRESSIONS_WHERE_POSSIBLE" value="false" />
+    <option name="INSERT_EXPLANATORY_PARENS" value="true" />
+    <option name="RATIONALIZE_ON_CHECKIN" value="false" />
+    <option name="OPTIMIZE_STRINGS_ON_CHECKIN" value="false" />
+    <option name="TIGHTEN_ACCESS_MODIFIERS_ON_CHECKIN" value="false" />
+    <option name="INFER_NULLITY_ON_CHECKIN" value="false" />
+    <option name="TIGHTEN_TYPES_ON_CHECKIN" value="false" />
+    <option name="CLEANUP_REFERENCES_ON_CHECKIN" value="false" />
+    <option name="OVERRIDE_ANNOTATION_RULE" value="0" />
+    <option name="protectedAnnotationStringFlattened" value="" />
+  </component>
+  <component name="JavacSettings">
+    <option name="DEBUGGING_INFO" value="true" />
+    <option name="GENERATE_NO_WARNINGS" value="false" />
+    <option name="DEPRECATION" value="true" />
+    <option name="ADDITIONAL_OPTIONS_STRING" value="" />
+    <option name="MAXIMUM_HEAP_SIZE" value="128" />
+  </component>
+  <component name="JavadocGenerationManager">
+    <option name="OUTPUT_DIRECTORY" />
+    <option name="OPTION_SCOPE" value="protected" />
+    <option name="OPTION_HIERARCHY" value="true" />
+    <option name="OPTION_NAVIGATOR" value="true" />
+    <option name="OPTION_INDEX" value="true" />
+    <option name="OPTION_SEPARATE_INDEX" value="true" />
+    <option name="OPTION_DOCUMENT_TAG_USE" value="false" />
+    <option name="OPTION_DOCUMENT_TAG_AUTHOR" value="false" />
+    <option name="OPTION_DOCUMENT_TAG_VERSION" value="false" />
+    <option name="OPTION_DOCUMENT_TAG_DEPRECATED" value="true" />
+    <option name="OPTION_DEPRECATED_LIST" value="true" />
+    <option name="OTHER_OPTIONS" value="" />
+    <option name="HEAP_SIZE" />
+    <option name="LOCALE" />
+    <option name="OPEN_IN_BROWSER" value="true" />
+  </component>
+  <component name="JikesSettings">
+    <option name="JIKES_PATH" value="" />
+    <option name="DEBUGGING_INFO" value="true" />
+    <option name="DEPRECATION" value="true" />
+    <option name="GENERATE_NO_WARNINGS" value="false" />
+    <option name="IS_EMACS_ERRORS_MODE" value="true" />
+    <option name="ADDITIONAL_OPTIONS_STRING" value="" />
+  </component>
+  <component name="LogConsolePreferences">
+    <option name="FILTER_ERRORS" value="false" />
+    <option name="FILTER_WARNINGS" value="false" />
+    <option name="FILTER_INFO" value="true" />
+    <option name="CUSTOM_FILTER" />
+  </component>
+  <component name="Palette2">
+    <group name="Swing">
+      <item class="com.intellij.uiDesigner.HSpacer" tooltip-text="Horizontal Spacer" icon="/com/intellij/uiDesigner/icons/hspacer.png" removable="false" auto-create-binding="false" can-attach-label="false">
+        <default-constraints vsize-policy="1" hsize-policy="6" anchor="0" fill="1" />
+      </item>
+      <item class="com.intellij.uiDesigner.VSpacer" tooltip-text="Vertical Spacer" icon="/com/intellij/uiDesigner/icons/vspacer.png" removable="false" auto-create-binding="false" can-attach-label="false">
+        <default-constraints vsize-policy="6" hsize-policy="1" anchor="0" fill="2" />
+      </item>
+      <item class="javax.swing.JPanel" icon="/com/intellij/uiDesigner/icons/panel.png" removable="false" auto-create-binding="false" can-attach-label="false">
+        <default-constraints vsize-policy="3" hsize-policy="3" anchor="0" fill="3" />
+      </item>
+      <item class="javax.swing.JScrollPane" icon="/com/intellij/uiDesigner/icons/scrollPane.png" removable="false" auto-create-binding="false" can-attach-label="true">
+        <default-constraints vsize-policy="7" hsize-policy="7" anchor="0" fill="3" />
+      </item>
+      <item class="javax.swing.JButton" icon="/com/intellij/uiDesigner/icons/button.png" removable="false" auto-create-binding="true" can-attach-label="false">
+        <default-constraints vsize-policy="0" hsize-policy="3" anchor="0" fill="1" />
+        <initial-values>
+          <property name="text" value="Button" />
+        </initial-values>
+      </item>
+      <item class="javax.swing.JRadioButton" icon="/com/intellij/uiDesigner/icons/radioButton.png" removable="false" auto-create-binding="true" can-attach-label="false">
+        <default-constraints vsize-policy="0" hsize-policy="3" anchor="8" fill="0" />
+        <initial-values>
+          <property name="text" value="RadioButton" />
+        </initial-values>
+      </item>
+      <item class="javax.swing.JCheckBox" icon="/com/intellij/uiDesigner/icons/checkBox.png" removable="false" auto-create-binding="true" can-attach-label="false">
+        <default-constraints vsize-policy="0" hsize-policy="3" anchor="8" fill="0" />
+        <initial-values>
+          <property name="text" value="CheckBox" />
+        </initial-values>
+      </item>
+      <item class="javax.swing.JLabel" icon="/com/intellij/uiDesigner/icons/label.png" removable="false" auto-create-binding="false" can-attach-label="false">
+        <default-constraints vsize-policy="0" hsize-policy="0" anchor="8" fill="0" />
+        <initial-values>
+          <property name="text" value="Label" />
+        </initial-values>
+      </item>
+      <item class="javax.swing.JTextField" icon="/com/intellij/uiDesigner/icons/textField.png" removable="false" auto-create-binding="true" can-attach-label="true">
+        <default-constraints vsize-policy="0" hsize-policy="6" anchor="8" fill="1">
+          <preferred-size width="150" height="-1" />
+        </default-constraints>
+      </item>
+      <item class="javax.swing.JPasswordField" icon="/com/intellij/uiDesigner/icons/passwordField.png" removable="false" auto-create-binding="true" can-attach-label="true">
+        <default-constraints vsize-policy="0" hsize-policy="6" anchor="8" fill="1">
+          <preferred-size width="150" height="-1" />
+        </default-constraints>
+      </item>
+      <item class="javax.swing.JFormattedTextField" icon="/com/intellij/uiDesigner/icons/formattedTextField.png" removable="false" auto-create-binding="true" can-attach-label="true">
+        <default-constraints vsize-policy="0" hsize-policy="6" anchor="8" fill="1">
+          <preferred-size width="150" height="-1" />
+        </default-constraints>
+      </item>
+      <item class="javax.swing.JTextArea" icon="/com/intellij/uiDesigner/icons/textArea.png" removable="false" auto-create-binding="true" can-attach-label="true">
+        <default-constraints vsize-policy="6" hsize-policy="6" anchor="0" fill="3">
+          <preferred-size width="150" height="50" />
+        </default-constraints>
+      </item>
+      <item class="javax.swing.JTextPane" icon="/com/intellij/uiDesigner/icons/textPane.png" removable="false" auto-create-binding="true" can-attach-label="true">
+        <default-constraints vsize-policy="6" hsize-policy="6" anchor="0" fill="3">
+          <preferred-size width="150" height="50" />
+        </default-constraints>
+      </item>
+      <item class="javax.swing.JEditorPane" icon="/com/intellij/uiDesigner/icons/editorPane.png" removable="false" auto-create-binding="true" can-attach-label="true">
+        <default-constraints vsize-policy="6" hsize-policy="6" anchor="0" fill="3">
+          <preferred-size width="150" height="50" />
+        </default-constraints>
+      </item>
+      <item class="javax.swing.JComboBox" icon="/com/intellij/uiDesigner/icons/comboBox.png" removable="false" auto-create-binding="true" can-attach-label="true">
+        <default-constraints vsize-policy="0" hsize-policy="2" anchor="8" fill="1" />
+      </item>
+      <item class="javax.swing.JTable" icon="/com/intellij/uiDesigner/icons/table.png" removable="false" auto-create-binding="true" can-attach-label="false">
+        <default-constraints vsize-policy="6" hsize-policy="6" anchor="0" fill="3">
+          <preferred-size width="150" height="50" />
+        </default-constraints>
+      </item>
+      <item class="javax.swing.JList" icon="/com/intellij/uiDesigner/icons/list.png" removable="false" auto-create-binding="true" can-attach-label="false">
+        <default-constraints vsize-policy="6" hsize-policy="2" anchor="0" fill="3">
+          <preferred-size width="150" height="50" />
+        </default-constraints>
+      </item>
+      <item class="javax.swing.JTree" icon="/com/intellij/uiDesigner/icons/tree.png" removable="false" auto-create-binding="true" can-attach-label="false">
+        <default-constraints vsize-policy="6" hsize-policy="6" anchor="0" fill="3">
+          <preferred-size width="150" height="50" />
+        </default-constraints>
+      </item>
+      <item class="javax.swing.JTabbedPane" icon="/com/intellij/uiDesigner/icons/tabbedPane.png" removable="false" auto-create-binding="true" can-attach-label="false">
+        <default-constraints vsize-policy="3" hsize-policy="3" anchor="0" fill="3">
+          <preferred-size width="200" height="200" />
+        </default-constraints>
+      </item>
+      <item class="javax.swing.JSplitPane" icon="/com/intellij/uiDesigner/icons/splitPane.png" removable="false" auto-create-binding="false" can-attach-label="false">
+        <default-constraints vsize-policy="3" hsize-policy="3" anchor="0" fill="3">
+          <preferred-size width="200" height="200" />
+        </default-constraints>
+      </item>
+      <item class="javax.swing.JSpinner" icon="/com/intellij/uiDesigner/icons/spinner.png" removable="false" auto-create-binding="true" can-attach-label="true">
+        <default-constraints vsize-policy="0" hsize-policy="6" anchor="8" fill="1" />
+      </item>
+      <item class="javax.swing.JSlider" icon="/com/intellij/uiDesigner/icons/slider.png" removable="false" auto-create-binding="true" can-attach-label="false">
+        <default-constraints vsize-policy="0" hsize-policy="6" anchor="8" fill="1" />
+      </item>
+      <item class="javax.swing.JSeparator" icon="/com/intellij/uiDesigner/icons/separator.png" removable="false" auto-create-binding="false" can-attach-label="false">
+        <default-constraints vsize-policy="6" hsize-policy="6" anchor="0" fill="3" />
+      </item>
+      <item class="javax.swing.JProgressBar" icon="/com/intellij/uiDesigner/icons/progressbar.png" removable="false" auto-create-binding="true" can-attach-label="false">
+        <default-constraints vsize-policy="0" hsize-policy="6" anchor="0" fill="1" />
+      </item>
+      <item class="javax.swing.JToolBar" icon="/com/intellij/uiDesigner/icons/toolbar.png" removable="false" auto-create-binding="false" can-attach-label="false">
+        <default-constraints vsize-policy="0" hsize-policy="6" anchor="0" fill="1">
+          <preferred-size width="-1" height="20" />
+        </default-constraints>
+      </item>
+      <item class="javax.swing.JToolBar$Separator" icon="/com/intellij/uiDesigner/icons/toolbarSeparator.png" removable="false" auto-create-binding="false" can-attach-label="false">
+        <default-constraints vsize-policy="0" hsize-policy="0" anchor="0" fill="1" />
+      </item>
+      <item class="javax.swing.JScrollBar" icon="/com/intellij/uiDesigner/icons/scrollbar.png" removable="false" auto-create-binding="true" can-attach-label="false">
+        <default-constraints vsize-policy="6" hsize-policy="0" anchor="0" fill="2" />
+      </item>
+    </group>
+  </component>
+  <component name="PerforceChangeBrowserSettings">
+    <option name="USE_CLIENT_FILTER" value="true" />
+    <option name="CLIENT" value="" />
+  </component>
+  <component name="PerforceDirect.Settings">
+    <option name="useP4CONFIG" value="true" />
+    <option name="port" value="&lt;perforce_server&gt;:1666" />
+    <option name="client" value="" />
+    <option name="user" value="" />
+    <option name="passwd" value="" />
+    <option name="showCmds" value="false" />
+    <option name="useNativeApi" value="true" />
+    <option name="pathToExec" value="p4" />
+    <option name="useCustomPathToExec" value="false" />
+    <option name="SYNC_FORCE" value="false" />
+    <option name="SYNC_RUN_RESOLVE" value="true" />
+    <option name="REVERT_UNCHANGED_FILES" value="true" />
+    <option name="CHARSET" value="none" />
+    <option name="SHOW_BRANCHES_HISTORY" value="true" />
+    <option name="ENABLED" value="true" />
+    <option name="USE_LOGIN" value="false" />
+    <option name="LOGIN_SILENTLY" value="false" />
+    <option name="INTEGRATE_RUN_RESOLVE" value="true" />
+    <option name="INTEGRATE_REVERT_UNCHANGED" value="true" />
+    <option name="SERVER_TIMEOUT" value="20000" />
+  </component>
+  <component name="ProjectFileVersion" converted="true" />
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/CommitLog.iml" filepath="$PROJECT_DIR$/CommitLog.iml" />
+    </modules>
+  </component>
+  <component name="ProjectRootConfigurable.UI">
+    <option name="proportions">
+      <SplitterProportionsDataImpl>
+        <option name="proportions">
+          <collection>
+            <option value="0.16666667" />
+          </collection>
+        </option>
+      </SplitterProportionsDataImpl>
+    </option>
+    <option name="lastEditedConfigurable" value="Project 'Default (Template) Project'" />
+  </component>
+  <component name="ProjectRootManager" version="2" assert-keyword="true" jdk-15="true" project-jdk-name="IDEA 7364" project-jdk-type="IDEA JDK">
+    <output url="file://$PROJECT_DIR$/classes" />
+  </component>
+  <component name="ResourceManagerContainer">
+    <option name="myResourceBundles">
+      <value>
+        <list size="0" />
+      </value>
+    </option>
+  </component>
+  <component name="RmicSettings">
+    <option name="IS_EANABLED" value="false" />
+    <option name="DEBUGGING_INFO" value="true" />
+    <option name="GENERATE_NO_WARNINGS" value="false" />
+    <option name="GENERATE_IIOP_STUBS" value="false" />
+    <option name="ADDITIONAL_OPTIONS_STRING" value="" />
+  </component>
+  <component name="ScopeChooserConfigurable.UI">
+    <option name="proportions">
+      <SplitterProportionsDataImpl />
+    </option>
+  </component>
+  <component name="Struts Assistant">
+    <option name="showInputs" value="true" />
+    <option name="resources">
+      <value>
+        <option name="strutsPath" />
+        <option name="strutsHelp" />
+      </value>
+    </option>
+    <option name="selectedTaglibs" />
+    <option name="selectedTaglibs" />
+    <option name="myStrutsValidationEnabled" value="true" />
+    <option name="myTilesValidationEnabled" value="true" />
+    <option name="myValidatorValidationEnabled" value="true" />
+    <option name="myReportErrorsAsWarnings" value="true" />
+  </component>
+  <component name="SvnChangesBrowserSettings">
+    <option name="LOCATION" value="" />
+    <option name="USE_PROJECT_SETTINGS" value="true" />
+    <option name="USE_ALTERNATE_LOCATION" value="false" />
+  </component>
+  <component name="VCS.FileViewConfiguration">
+    <option name="SELECTED_STATUSES" value="DEFAULT" />
+    <option name="SELECTED_COLUMNS" value="DEFAULT" />
+    <option name="SHOW_FILTERS" value="true" />
+    <option name="CUSTOMIZE_VIEW" value="true" />
+    <option name="SHOW_FILE_HISTORY_AS_TREE" value="true" />
+  </component>
+  <component name="VcsDirectoryMappings">
+    <mapping directory="" vcs="" />
+  </component>
+  <component name="ZipChangesCommitExecutor">
+    <option name="PATCH_PATH" value="" />
+  </component>
+  <component name="com.intellij.ide.util.scopeChooser.ScopeChooserConfigurable" proportions="" version="1">
+    <option name="myLastEditedConfigurable" />
+  </component>
+  <component name="com.intellij.jsf.UserDefinedFacesConfigs">
+    <option name="USER_DEFINED_CONFIGS">
+      <value>
+        <list size="0" />
+      </value>
+    </option>
+  </component>
+  <component name="com.intellij.openapi.roots.ui.configuration.projectRoot.ProjectRootMasterDetailsConfigurable" proportions="0.5" version="1">
+    <option name="myLastEditedConfigurable" value="Project 'Default (Template) Project'" />
+  </component>
+  <component name="com.intellij.profile.ui.ErrorOptionsConfigurable" proportions="" version="1">
+    <option name="myLastEditedConfigurable" />
+  </component>
+  <component name="copyright">
+    <Base>
+      <setting name="state" value="2" />
+    </Base>
+  </component>
+  <component name="ideadoc.IdeaDocConfigurationGUI">
+    <doccer class="nl.piraya.ideadoc.doccer.DoccerForOverridingMethod" enabled="true">
+      <template>/**$s${@inheritDoc}$s$*/</template>
+    </doccer>
+    <doccer class="nl.piraya.ideadoc.doccer.DoccerForGetter" enabled="true">
+      <template>/**$n$$s$*$s$Getter$s$for$s$property$s$'${PROPERTY_NAME}'.$n$$s$*$n$$s$*$s$@return$s$Value$s$for$s$property$s$'${PROPERTY_NAME}'.$n$$s$*/</template>
+    </doccer>
+    <doccer class="nl.piraya.ideadoc.doccer.DoccerForSetter" enabled="true">
+      <template>/**$n$$s$*$s$Setter$s$for$s$property$s$'${PROPERTY_NAME}'.$n$$s$*$n$$s$*$s$@param$s$${PARAM_NAME}$s$Value$s$to$s$set$s$for$s$property$s$'${PROPERTY_NAME}'.$n$$s$*/</template>
+    </doccer>
+    <doccer class="nl.piraya.ideadoc.doccer.DoccerForDefaultConstructor" enabled="true">
+      <template>/**$s$Constructs$s$a$s$new$s$${CLASS_NAME}.$s$*/</template>
+    </doccer>
+    <doccer class="nl.piraya.ideadoc.doccer.DoccerForPrivateDefaultConstructor" enabled="true">
+      <template>/**$s$Do$s$not$s$instantiate$s$${CLASS_NAME}.$s$*/</template>
+    </doccer>
+  </component>
+</project>
+

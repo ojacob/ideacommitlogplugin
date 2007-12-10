@@ -21,22 +21,22 @@ import com.intellij.openapi.project.Project;
 import com.intellij.openapi.roots.ProjectFileIndex;
 import com.intellij.openapi.roots.ProjectRootManager;
 import com.intellij.openapi.vcs.*;
-import com.intellij.openapi.vcs.ui.RefreshableOnComponent;
 import com.intellij.openapi.vcs.changes.*;
 import com.intellij.openapi.vcs.checkin.CheckinHandler;
-import com.intellij.openapi.vcs.history.VcsHistoryProvider;
-import com.intellij.openapi.vcs.history.VcsHistorySession;
+import com.intellij.openapi.vcs.diff.DiffProvider;
+import com.intellij.openapi.vcs.history.*;
+import com.intellij.openapi.vcs.ui.RefreshableOnComponent;
 import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.vcsUtil.VcsUtil;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import javax.swing.*;
-import java.io.*;
+import java.awt.*;
+import java.io.File;
 import java.text.DateFormat;
 import java.util.*;
 import java.util.List;
-import java.awt.*;
 
 @SuppressWarnings(
   {"AssignmentToForLoopParameter", "CallToPrintStackTrace", "SSBasedInspection", "CallToPrintStackTrace", "CatchGenericClass"})
@@ -230,12 +230,21 @@ class CommitLogCheckinHandler extends CheckinHandler
     throws VcsException
   {
     String version = null;
-    final VcsHistoryProvider historyProvider = vcs.getVcsHistoryProvider();
-    if (historyProvider != null) {
-      final VcsHistorySession session = historyProvider.createSessionFor(filePath);
-      if (session != null) {
-        if (!session.getRevisionList().isEmpty())
-          version = session.getCurrentRevisionNumber().asString();
+    final DiffProvider diffProvider = vcs.getDiffProvider();
+    final VirtualFile file = filePath.getVirtualFile();
+    if (diffProvider != null && file != null) {
+      final VcsRevisionNumber revision = diffProvider.getCurrentRevision(file);
+      if (revision != null)
+        version = revision.asString();
+    } else {
+      // deleted or diff provider not supported - use alternate method but lookup will be slower.
+      final VcsHistoryProvider historyProvider = vcs.getVcsHistoryProvider();
+      if (historyProvider != null) {
+        final VcsHistorySession session = historyProvider.createSessionFor(filePath);
+        if (session != null) {
+          if (!session.getRevisionList().isEmpty())
+            version = session.getCurrentRevisionNumber().asString();
+        }
       }
     }
     return version;

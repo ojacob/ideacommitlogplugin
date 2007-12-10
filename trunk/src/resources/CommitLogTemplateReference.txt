@@ -32,4 +32,4 @@ The value placeholders supported in the [FILE_ENTRY] block are as follows:
 * $OLD_REVISION_NUMBER$ : The revision number of the file before commit.
 * $NEW_REVISION_NUMBER$ : The revision number of the file after commit.
 
-If you wish to place a literal '$', '[', ']' or '/' into the template, it should be prefixed with the escape character '/'.  Note that whitespace and newlines are fully retained during template processing.
+If you wish to place a literal '$', '[', ']' or '\' into the template, it should be prefixed with the escape character '\'.  Note that whitespace and newlines are fully retained during template processing.

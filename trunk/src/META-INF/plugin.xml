@@ -16,6 +16,11 @@
   <version>1.0.1</version>
   <vendor email="anecdotesoftware@gmail.com" url="http://code.google.com/p/ideacommitlogplugin/">Nathan Brown</vendor>
   <idea-version since-build="7364"/>
+  <change-notes><![CDATA[
+    1.0.1 - Fix to template documentation.<br>
+    1.0   - Initial Version
+]]>
+  </change-notes>
   <project-components>
     <component>
       <implementation-class>com.anecdote.ideaplugins.commitlog.CommitLogProjectComponent</implementation-class>

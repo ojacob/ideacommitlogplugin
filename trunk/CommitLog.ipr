@@ -45,9 +45,6 @@
   <component name="CompilerConfiguration">
     <option name="DEFAULT_COMPILER" value="Javac" />
     <option name="DEPLOY_AFTER_MAKE" value="0" />
-    <excludeFromCompile>
-      <directory url="file://$PROJECT_DIR$/src/com/intellij" includeSubdirectories="true" />
-    </excludeFromCompile>
     <resourceExtensions>
       <entry name=".+\.(properties|xml|html|dtd|tld)" />
       <entry name=".+\.(gif|png|jpeg|jpg)" />
@@ -64,6 +61,9 @@
       <entry name="?*.tld" />
       <entry name="*.txt" />
     </wildcardResourcePatterns>
+  </component>
+  <component name="CopyrightManager" default="">
+    <module2copyright />
   </component>
   <component name="DependenciesAnalyzeManager">
     <option name="myForwardDirection" value="false" />
@@ -85,6 +85,7 @@
     <option name="ADDITIONAL_OPTIONS_STRING" value="" />
     <option name="MAXIMUM_HEAP_SIZE" value="128" />
   </component>
+  <component name="Encoding" useUTFGuessing="true" native2AsciiForPropertiesFiles="false" />
   <component name="EntryPointsManager">
     <entry_points version="2.0" />
   </component>
@@ -411,9 +412,7 @@
         </inspection_tool>
         <inspection_tool class="IncrementDecrementUsedAsExpression" level="WARNING" enabled="true" />
         <inspection_tool class="MissingDeprecatedAnnotation" level="WARNING" enabled="true" />
-        <inspection_tool class="MissingOverrideAnnotation" level="WARNING" enabled="true">
-          <option name="useJdk6Rules" value="false" />
-        </inspection_tool>
+        <inspection_tool class="MissingOverrideAnnotation" level="WARNING" enabled="true" />
         <inspection_tool class="RedundantMethodOverride" level="WARNING" enabled="true" />
         <inspection_tool class="RefusedBequest" level="WARNING" enabled="false">
           <option name="ignoreEmptySuperMethods" value="false" />
@@ -458,7 +457,6 @@
         <inspection_tool class="UnusedCatchParameter" level="WARNING" enabled="true">
           <option name="m_ignoreCatchBlocksWithComments" value="false" />
           <option name="m_ignoreTestCases" value="false" />
-          <option name="m_ignoreIgnoreParameter" value="true" />
         </inspection_tool>
         <inspection_tool class="UnnecessaryLocalVariable" level="WARNING" enabled="true">
           <option name="m_ignoreImmediatelyReturnedVariables" value="false" />
@@ -506,10 +504,6 @@
         <inspection_tool class="ResultSetIndexZero" level="WARNING" enabled="true" />
         <inspection_tool class="AccessToStaticFieldLockedOnInstance" level="WARNING" enabled="true" />
         <inspection_tool class="SSBasedInspection" level="WARNING" enabled="true" />
-        <inspection_tool class="FieldUsedInOnlyOneMethod" level="WARNING" enabled="false" />
-        <inspection_tool class="DuplicateTypeCastInMethod" level="INFO" enabled="true" />
-        <inspection_tool class="DuplicateGetterCallInMethod" level="WARNING" enabled="true" />
-        <inspection_tool class="SetterSequence" level="WARNING" enabled="false" />
       </profile>
     </profiles>
     <list size="0" />
@@ -534,12 +528,19 @@
     <option name="OVERRIDE_ANNOTATION_RULE" value="0" />
     <option name="protectedAnnotationStringFlattened" value="" />
   </component>
+  <component name="J2DDesignerComponent">
+    <graphics>
+      <graphicsVar>graphics</graphicsVar>
+      <widthVar>width</widthVar>
+      <heightVar>height</heightVar>
+    </graphics>
+  </component>
   <component name="JavacSettings">
     <option name="DEBUGGING_INFO" value="true" />
     <option name="GENERATE_NO_WARNINGS" value="false" />
     <option name="DEPRECATION" value="true" />
     <option name="ADDITIONAL_OPTIONS_STRING" value="" />
-    <option name="MAXIMUM_HEAP_SIZE" value="128" />
+    <option name="MAXIMUM_HEAP_SIZE" value="512" />
   </component>
   <component name="JavadocGenerationManager">
     <option name="OUTPUT_DIRECTORY" />
@@ -697,29 +698,13 @@
     <option name="USE_CLIENT_FILTER" value="true" />
     <option name="CLIENT" value="" />
   </component>
-  <component name="PerforceDirect.Settings">
-    <option name="useP4CONFIG" value="true" />
-    <option name="port" value="&lt;perforce_server&gt;:1666" />
-    <option name="client" value="" />
-    <option name="user" value="" />
-    <option name="passwd" value="" />
-    <option name="showCmds" value="false" />
-    <option name="useNativeApi" value="true" />
-    <option name="pathToExec" value="p4" />
-    <option name="useCustomPathToExec" value="false" />
-    <option name="SYNC_FORCE" value="false" />
-    <option name="SYNC_RUN_RESOLVE" value="true" />
-    <option name="REVERT_UNCHANGED_FILES" value="true" />
-    <option name="CHARSET" value="none" />
-    <option name="SHOW_BRANCHES_HISTORY" value="true" />
-    <option name="ENABLED" value="true" />
-    <option name="USE_LOGIN" value="false" />
-    <option name="LOGIN_SILENTLY" value="false" />
-    <option name="INTEGRATE_RUN_RESOLVE" value="true" />
-    <option name="INTEGRATE_REVERT_UNCHANGED" value="true" />
-    <option name="SERVER_TIMEOUT" value="20000" />
+  <component name="ProjectDetails">
+    <option name="projectName" value="CommitLog" />
   </component>
   <component name="ProjectFileVersion" converted="true" />
+  <component name="ProjectKey">
+    <option name="state" value="https://ideacommitlogplugin.googlecode.com/svn/trunk/CommitLog.ipr" />
+  </component>
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/CommitLog.iml" filepath="$PROJECT_DIR$/CommitLog.iml" />
@@ -737,7 +722,7 @@
     </option>
     <option name="lastEditedConfigurable" value="Project 'Default (Template) Project'" />
   </component>
-  <component name="ProjectRootManager" version="2" assert-keyword="true" jdk-15="true" project-jdk-name="IDEA 7364" project-jdk-type="IDEA JDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_5" assert-keyword="true" jdk-15="true" project-jdk-name="IDEA 7860" project-jdk-type="IDEA JDK">
     <output url="file://$PROJECT_DIR$/classes" />
   </component>
   <component name="ResourceManagerContainer">
@@ -774,6 +759,10 @@
     <option name="myValidatorValidationEnabled" value="true" />
     <option name="myReportErrorsAsWarnings" value="true" />
   </component>
+  <component name="SvnBranchConfigurationManager">
+    <option name="myVersion" value="124" />
+    <option name="mySupportsUserInfoFilter" value="true" />
+  </component>
   <component name="SvnChangesBrowserSettings">
     <option name="LOCATION" value="" />
     <option name="USE_PROJECT_SETTINGS" value="true" />
@@ -789,6 +778,25 @@
   <component name="VcsDirectoryMappings">
     <mapping directory="" vcs="svn" />
   </component>
+  <component name="VcsRevisionGraphProjectComponent">
+    <option name="_useTwoTagConvention" value="true" />
+    <option name="_showTags" value="true" />
+    <option name="_tagNaming" value="TAG_$T_MERGE_$S_TO_$D" />
+    <option name="_tagFilter" value="" />
+    <option name="_branchFilter" />
+    <option name="_showRevisionFilter" value="false" />
+    <option name="_afterDateTimeFilter" value="false" />
+    <option name="_beforeDateTimeFilter" value="false" />
+    <option name="_afterDateTime" value="" />
+    <option name="_beforeDateTime" value="" />
+    <option name="_projectRoot" value="&lt;Use repository root&gt;" />
+    <option name="_trunk" value="trunk" />
+    <option name="_branches" value="branches" />
+    <option name="_tags" value="tags" />
+    <option name="_showTagFilter" value="false" />
+    <option name="_showBranchFilter" value="false" />
+  </component>
+  <component name="WebServicesPlugin" addRequiredLibraries="true" />
   <component name="ZipChangesCommitExecutor">
     <option name="PATCH_PATH" value="" />
   </component>

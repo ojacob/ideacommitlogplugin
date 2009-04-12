@@ -32,7 +32,7 @@ import javax.swing.*;
 import java.io.*;
 
 @State(name = CommitLogProjectComponent.COMPONENT_NAME,
-       storages = {@Storage(id="COMMIT_LOG_PLUGIN", file = "$PROJECT_FILE$")})
+       storages = {@Storage(id = "COMMIT_LOG_PLUGIN", file = "$PROJECT_FILE$")})
 public class CommitLogProjectComponent extends CheckinHandlerFactory
   implements ProjectComponent, Configurable, PersistentStateComponent<CommitLogProjectComponent>
 {
@@ -47,6 +47,7 @@ public class CommitLogProjectComponent extends CheckinHandlerFactory
   public static final String COMPONENT_NAME = "CommitLogProjectComponent";
   private CommitLogConfigurationPanel _configurationPanel;
   private boolean _generateTextualCommitLog = true;
+  public static final String VERSION = "1.0.2";
 
   public CommitLogProjectComponent()
   {
@@ -92,7 +93,8 @@ public class CommitLogProjectComponent extends CheckinHandlerFactory
     return new CommitLogCheckinHandler(this, panel);
   }
 
-  public Project getProject() {
+  public Project getProject()
+  {
     return _project;
   }
 
@@ -184,8 +186,9 @@ public class CommitLogProjectComponent extends CheckinHandlerFactory
 
   public JComponent createComponent()
   {
-    if (_configurationPanel == null)
+    if (_configurationPanel == null) {
       _configurationPanel = new CommitLogConfigurationPanel(this);
+    }
     return _configurationPanel;
   }
 
@@ -227,5 +230,11 @@ public class CommitLogProjectComponent extends CheckinHandlerFactory
   public boolean isGenerateTextualCommitLog()
   {
     return _generateTextualCommitLog;
+  }
+
+  @SuppressWarnings({"SSBasedInspection"})
+  public static void log(String s)
+  {
+    System.out.println(s);
   }
 }

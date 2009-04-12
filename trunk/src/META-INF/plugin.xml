@@ -13,10 +13,11 @@
   * Improve template editing.<br>
   * Pre-commit log generation, and generation of commit comment.<br>
   ]]></description>
-  <version>1.0.1</version>
+  <version>1.0.2</version>
   <vendor email="anecdotesoftware@gmail.com" url="http://code.google.com/p/ideacommitlogplugin/">Nathan Brown</vendor>
   <idea-version since-build="7364"/>
   <change-notes><![CDATA[
+    1.0.2 - Fix for null pointer exception when committing non-java files - replaced PACKAGE_PATH with PATH_FROM_ROOT in template.<br>
     1.0.1 - Fix to template documentation.<br>
     1.0   - Initial Version
 ]]>

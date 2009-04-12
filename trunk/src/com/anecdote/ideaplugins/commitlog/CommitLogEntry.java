@@ -30,17 +30,20 @@ class CommitLogEntry
   private final FilePath _filePath;
   private final Change.Type _changeType;
   private final String _vcsRootName;
+  private String _pathFromRoot;
   private final String _packageName;
   private final AbstractVcs _vcs;
   private String _oldVersion;
   private String _newVersion;
 
-  CommitLogEntry(File file, FilePath filePath, String vcsRootName, String packageName, AbstractVcs vcs,
+  CommitLogEntry(File file, FilePath filePath, String vcsRootName, String pathFromRoot, String packageName,
+                 AbstractVcs vcs,
                  Change.Type changeType)
   {
     _file = file;
     _vcsRootName = vcsRootName;
-    _packageName = packageName;
+    _pathFromRoot = pathFromRoot;
+    _packageName = packageName != null ? packageName : "<no package>";
     _vcs = vcs;
     _filePath = filePath;
     _changeType = changeType;
@@ -94,6 +97,11 @@ class CommitLogEntry
   public String getPackageName()
   {
     return _packageName;
+  }
+
+  public String getPathFromRoot()
+  {
+    return _pathFromRoot;
   }
 
   @NotNull

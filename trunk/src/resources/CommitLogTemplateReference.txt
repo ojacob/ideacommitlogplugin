@@ -24,10 +24,10 @@ Within each of the [*_FILES] blocks, a [FILE_ENTRY] block should be placed. This
 
 The value placeholders supported in the [FILE_ENTRY] block are as follows:
 * $PACKAGE_NAME$ : The package name of the file.
-* $PACKAGE_PATH$ : The package path of the file; i.e. the package name with all '.' separators replaced with '/' characters.
-* $FILE_PATH$ : The path of the file in the local system.
 * $FILE_NAME$ : The name of the file.
+* $FILE_PATH$ : The full path of the file in the local system.
 * $ROOT_NAME$ : The vcs root that the file is under.
+* $PATH_FROM_ROOT$ : The path of the file directory relative to the vcs root directory.
 * $FILE_ACTION$ : The action undertaken on the file during commit; either 'Removed', 'Modified' or 'Added'.
 * $OLD_REVISION_NUMBER$ : The revision number of the file before commit.
 * $NEW_REVISION_NUMBER$ : The revision number of the file after commit.

@@ -59,8 +59,8 @@ public class CommitLogConfigurationPanel extends JPanel
   private static final String COMMIT_LOG_TEMPLATE_REFERENCE_RESOURCE = "/resources/CommitLogTemplateReference.txt";
   private static final FileType TEMPLATE_FILE_TYPE = FileTypeManager.getInstance().getFileTypeByExtension("txt");
   private static final String SAMPLE_COMMIT_MESSAGE = "This is a sample commit message." +
-                                                    "  I hope you usually write more " +
-                                                    "than this for your commits ;^)";
+                                                      "  I hope you usually write more " +
+                                                      "than this for your commits ;^)";
   private AbstractAction _resetTemplateAction = new AbstractAction(null, IconLoader.getIcon(
     "/actions/undo.png"))
   {
@@ -106,7 +106,10 @@ public class CommitLogConfigurationPanel extends JPanel
 
     JTabbedPane tabbedPane = new JTabbedPane();
     add(tabbedPane, BorderLayout.CENTER);
-    
+    add(new JLabel("Version " + CommitLogProjectComponent.VERSION +
+                   " : Copyright 2007 - 2008 Anecdote Software.  All Rights Reserved."),
+        BorderLayout.SOUTH);
+
     _projectComponent = projectComponent;
     EditorFactory editorFactory = EditorFactory.getInstance();
     _templateDocument = editorFactory.createDocument(projectComponent.getTextualCommitLogTemplate());
@@ -120,7 +123,7 @@ public class CommitLogConfigurationPanel extends JPanel
     templateEditorToolBar.setBorderPainted(false);
     final JButton resetButton = templateEditorToolBar.add(_resetTemplateAction);
     resetButton.setText("Reset To Default");
-    resetButton.setHorizontalTextPosition(JButton.RIGHT);
+    resetButt on.setHorizontalTextPosition(JButton.RIGHT);
 
     JPanel templateEditorPanel = new JPanel(new BorderLayout());
     JComponent comp = _templateEditor.getComponent();
@@ -162,7 +165,8 @@ public class CommitLogConfigurationPanel extends JPanel
   {
     _modified = true;
     updateSampleDocument();
-    _resetTemplateAction.setEnabled(!_templateDocument.getText().equals(CommitLogProjectComponent.DEFAULT_COMMIT_LOG_TEMPLATE));
+    _resetTemplateAction.setEnabled(!_templateDocument.getText().equals(
+      CommitLogProjectComponent.DEFAULT_COMMIT_LOG_TEMPLATE));
   }
 
   private void updateSampleDocument()
@@ -190,25 +194,26 @@ public class CommitLogConfigurationPanel extends JPanel
       {
         public void run()
         {
-          _sampleDocument.setText(template.substring(0, e.getLocation() + 1) +"<<<ERROR\n" + e.getMessage());
+          _sampleDocument.setText(template.substring(0, e.getLocation() + 1) + "<<<ERROR\n" + e.getMessage());
         }
       });
     }
   }
 
   private static void addSampleCommitLogEntry(CommitLogBuilder sampleCommitLogBuilder, String className,
-                                        Change.Type changeType, String vcsRootName)
+                                              Change.Type changeType, String vcsRootName)
   {
     final File file = new File("c:/sandbox/" + vcsRootName + "/commitlog/samplecommit/" + className + ".java");
     final CommitLogEntry logEntry = new CommitLogEntry(file, new FilePathImpl(file, false), vcsRootName,
-                                                       "commitlog.samplecommit", null,
+                                                       "commitlog/samplecommit", "commitlog.samplecommit", null,
                                                        changeType);
     if (changeType == Change.Type.NEW) {
       logEntry.setNewVersion("1.0");
     } else {
       logEntry.setOldVersion("1.2.3.4");
-      if (changeType != Change.Type.DELETED)
+      if (changeType != Change.Type.DELETED) {
         logEntry.setNewVersion("1.2.3.5");
+      }
     }
     sampleCommitLogBuilder.addCommitLogEntry(logEntry);
   }

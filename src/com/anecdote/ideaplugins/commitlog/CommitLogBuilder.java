@@ -25,7 +25,8 @@ import java.text.DateFormat;
 import java.util.*;
 
 @SuppressWarnings(
-  {"AssignmentToForLoopParameter", "CallToPrintStackTrace", "SSBasedInspection", "CallToPrintStackTrace", "StringContatenationInLoop"})
+  {"AssignmentToForLoopParameter", "CallToPrintStackTrace", "SSBasedInspection", "CallToPrintStackTrace",
+   "StringContatenationInLoop"})
 class CommitLogBuilder
 {
   private static final String TIME_PLACEHOLDER = "TIME";
@@ -58,6 +59,7 @@ class CommitLogBuilder
   private static final String ROOT_NAME_PLACEHOLDER = "ROOT_NAME";
   private static final String PACKAGE_NAME_PLACEHOLDER = "PACKAGE_NAME";
   private static final String PACKAGE_PATH_PLACEHOLDER = "PACKAGE_PATH";
+  private static final String PATH_FROM_ROOT_PLACEHOLDER = "PATH_FROM_ROOT";
   private static final String OLD_REVISION_NUMBER_PLACEHOLDER = "OLD_REVISION_NUMBER";
   private static final String NEW_REVISION_NUMBER_PLACEHOLDER = "NEW_REVISION_NUMBER";
 
@@ -111,11 +113,11 @@ class CommitLogBuilder
       for (Iterator<CommitLogEntry> commitLogEntryIterator = commitLogEntries.iterator();
            commitLogEntryIterator.hasNext();) {
         CommitLogEntry commitLogEntry = commitLogEntryIterator.next();
-          // still exists, remove this as it wasn't done
-
         if (commitLogEntry.getOldVersion() == null ?
             commitLogEntry.getNewVersion() == null :
             commitLogEntry.getOldVersion().equals(commitLogEntry.getNewVersion())) {
+          CommitLogProjectComponent.log(
+            "Removing Commit log entry for " + commitLogEntry.getFilePath() + " : file not committed");
           commitLogEntryIterator.remove();
           result++;
         }
@@ -147,7 +149,7 @@ class CommitLogBuilder
   protected Map<Change.Type, Collection<CommitLogEntry>> getCommitLogEntriesByType(String root)
   {
     Map<Change.Type, Collection<CommitLogEntry>> byRoot = root != null ? _commitLogEntriesByRoot.get(root)
-                                                          : _commitLogEntriesByType;
+                                                                       : _commitLogEntriesByType;
     if (byRoot == null) {
       byRoot = new EnumMap<Change.Type, Collection<CommitLogEntry>>(Change.Type.class);
       _commitLogEntriesByRoot.put(root, byRoot);
@@ -158,9 +160,13 @@ class CommitLogBuilder
   @SuppressWarnings({"AssignmentToForLoopParameter"})
   protected String buildCommitLog(Date date) throws CommitLogTemplateParser.TextTemplateParserException
   {
+    CommitLogProjectComponent.log("CommitLogBuilder::buildCommitLog() Entered");
     final String templateText = _commitLogTemplate;
     final CommitLogTemplateParser parser = new CommitLogTemplateParser();
     final List<CommitLogTemplateParser.TextTemplateNode> textTemplateNodes = parser.parseTextTemplate(templateText);
+    if (textTemplateNodes.isEmpty()) {
+      CommitLogProjectComponent.log("ERROR : Parsed template is empty!");
+    }
     final StringBuilder result = new StringBuilder(500);
     for (int i = 0; i < textTemplateNodes.size(); i++) {
       final CommitLogTemplateParser.TextTemplateNode textTemplateNode = textTemplateNodes.get(i);
@@ -293,7 +299,8 @@ class CommitLogBuilder
     }
   }
 
-  private int appendCommitLogRootEntries(StringBuilder buffer, List<CommitLogTemplateParser.TextTemplateNode> nodes, Date date,
+  private int appendCommitLogRootEntries(StringBuilder buffer, List<CommitLogTemplateParser.TextTemplateNode> nodes,
+                                         Date date,
                                          @Nullable String rootName,
                                          @Nullable Map<Change.Type, Collection<CommitLogEntry>> logEntriesByType
   )
@@ -437,7 +444,8 @@ class CommitLogBuilder
                  CommitLogTemplateParser.BLOCK_PLACEHOLDER_OPEN_SYMBOL +
                  ADDED_FILES_SECTION_END_PLACEHOLDER + CommitLogTemplateParser.BLOCK_PLACEHOLDER_CLOSE_SYMBOL + ',' +
                  CommitLogTemplateParser.BLOCK_PLACEHOLDER_OPEN_SYMBOL +
-                 MODIFIED_FILES_SECTION_END_PLACEHOLDER + CommitLogTemplateParser.BLOCK_PLACEHOLDER_CLOSE_SYMBOL + " or " +
+                 MODIFIED_FILES_SECTION_END_PLACEHOLDER + CommitLogTemplateParser.BLOCK_PLACEHOLDER_CLOSE_SYMBOL +
+                 " or " +
                  CommitLogTemplateParser.BLOCK_PLACEHOLDER_OPEN_SYMBOL +
                  ALL_FILES_SECTION_END_PLACEHOLDER + CommitLogTemplateParser.BLOCK_PLACEHOLDER_CLOSE_SYMBOL;
         }
@@ -465,8 +473,8 @@ class CommitLogBuilder
             text = entry.getVcsRootName();
           } else if (text.equals(PACKAGE_NAME_PLACEHOLDER)) {
             text = entry.getPackageName();
-          } else if (text.equals(PACKAGE_PATH_PLACEHOLDER)) {
-            text = entry.getPackageName().replace('.', '/');
+          } else if (text.equals(PACKAGE_PATH_PLACEHOLDER) || text.equals(PATH_FROM_ROOT_PLACEHOLDER)) {
+            text = entry.getPathFromRoot();
           } else if (text.equals(OLD_REVISION_NUMBER_PLACEHOLDER)) {
             if (entry.getOldVersion() == null || type == Change.Type.NEW) {
               text = "Added";

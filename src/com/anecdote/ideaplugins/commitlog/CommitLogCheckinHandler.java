@@ -39,7 +39,8 @@ import java.util.*;
 import java.util.List;
 
 @SuppressWarnings(
-  {"AssignmentToForLoopParameter", "CallToPrintStackTrace", "SSBasedInspection", "CallToPrintStackTrace", "CatchGenericClass"})
+  {"AssignmentToForLoopParameter", "CallToPrintStackTrace", "SSBasedInspection", "CallToPrintStackTrace",
+   "CatchGenericClass"})
 class CommitLogCheckinHandler extends CheckinHandler
 {
   private final CommitLogProjectComponent _projectComponent;
@@ -67,15 +68,18 @@ class CommitLogCheckinHandler extends CheckinHandler
   @Override
   public ReturnResult beforeCheckin()
   {
+    CommitLogProjectComponent.log("CommitLogCheckinHandler::beforeCheckin Entered");
     final ReturnResult returnResult = super.beforeCheckin();
     if (_projectComponent.isGenerateTextualCommitLog()) {
-      _commitLogBuilder = new CommitLogBuilder(_projectComponent.getTextualCommitLogTemplate(), _panel.getCommitMessage());
+      _commitLogBuilder = new CommitLogBuilder(_projectComponent.getTextualCommitLogTemplate(),
+                                               _panel.getCommitMessage());
       try {
         final List<AbstractVcs> affectedVcses = _panel.getAffectedVcses();
         final Collection<File> files = _panel.getFiles();
         for (final File file : files) {
           final FilePath filePath = file.exists() ?
-                                    VcsUtil.getFilePath(file) : VcsUtil.getFilePathForDeletedFile(file.getPath(), false);
+                                    VcsUtil.getFilePath(file) : VcsUtil.getFilePathForDeletedFile(file.getPath(),
+                                                                                                  false);
           ChangeListManager changeListManager = ChangeListManager.getInstance(_project);
           final Change change = changeListManager.getChange(filePath);
           if (_changeListName == null) {
@@ -88,8 +92,10 @@ class CommitLogCheckinHandler extends CheckinHandler
             final String vcsRootName = vcsRoot != null ? vcsRoot.getPresentableName() : "";
             for (final AbstractVcs affectedVcs : affectedVcses) {
               if (affectedVcs.fileIsUnderVcs(filePath)) {
-                final CommitLogEntry commitLogEntry = new CommitLogEntry(file, filePath, vcsRootName,
-                                                                         getPackageName(filePath), affectedVcs,
+                String packageName = getPackageName(filePath);
+                String pathFromRoot = getPathFromRoot(vcsRoot, filePath);
+                final CommitLogEntry commitLogEntry = new CommitLogEntry(file, filePath, vcsRootName, pathFromRoot,
+                                                                         packageName, affectedVcs,
                                                                          changeType);
                 _commitLogBuilder.addCommitLogEntry(commitLogEntry);
                 if (beforeRevision != null) {
@@ -107,9 +113,22 @@ class CommitLogCheckinHandler extends CheckinHandler
     return returnResult;
   }
 
+  private static String getPathFromRoot(VirtualFile vcsRoot, FilePath filePath)
+  {
+    String pathFromRoot = null;
+    FilePath path = filePath.getParentPath();
+    while (path != null && !path.getVirtualFile().equals(vcsRoot)) {
+      String name = path.getName();
+      pathFromRoot = pathFromRoot != null ? name + '/' + pathFromRoot : name;
+      path = path.getParentPath();
+    }
+    return pathFromRoot;
+  }
+
   @Override
   public void checkinFailed(List<VcsException> exception)
   {
+    CommitLogProjectComponent.log("CommitLogCheckinHandler::checkinFailed() Entered");
     try {
       super.checkinFailed(exception);
       if (_projectComponent.isGenerateTextualCommitLog()) {
@@ -125,6 +144,7 @@ class CommitLogCheckinHandler extends CheckinHandler
   @Override
   public void checkinSuccessful()
   {
+    CommitLogProjectComponent.log("CommitLogCheckinHandler::checkinSuccessful() Entered");
     try {
       if (_projectComponent.isGenerateTextualCommitLog()) {
         super.checkinSuccessful();
@@ -138,6 +158,8 @@ class CommitLogCheckinHandler extends CheckinHandler
 
   private void outputCommitLog(final boolean failed)
   {
+    CommitLogProjectComponent.log("CommitLogCheckinHandler::outputCommitLog() Entered");
+    CommitLogProjectComponent.log("CommitLogCheckinHandler.outputCommitLog : failed = " + failed);
 //    final ChangeListManager changeListManager = ChangeListManager.getInstance(_project);
 //    Runnable runnable = new Runnable()
 //    {
@@ -169,12 +191,13 @@ class CommitLogCheckinHandler extends CheckinHandler
       commitLog = e.getMessage();
     }
     final String changeListName = _changeListName;
-//      System.out.println(commitLog);
+//      CommitLogProjectComponent.log(commitLog);
     final String finalCommitLog = commitLog;
     SwingUtilities.invokeLater(new Runnable()
     {
       public void run()
       {
+        CommitLogProjectComponent.log("CommitLogCheckinHandler::outputCommitLog Runnable.run() Entered");
         EditorFactory editorFactory = EditorFactory.getInstance();
         Document document = editorFactory.createDocument(finalCommitLog);
         Editor viewer = editorFactory.createViewer(document, _project);
@@ -185,8 +208,9 @@ class CommitLogCheckinHandler extends CheckinHandler
         editorsettings.setRightMarginShown(false);
         String tabTitle = DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT).format(date) + " : " +
                           changeListName;
-        if (failed)
+        if (failed) {
           tabTitle += " [FAILED]";
+        }
         CommitLogWindow window = _projectComponent.getCommitLogWindow();
         window.addCommitLog(tabTitle, viewer);
         window.ensureVisible(_project);
@@ -202,8 +226,9 @@ class CommitLogCheckinHandler extends CheckinHandler
       for (final CommitLogEntry commitLogEntry : mapEntry.getValue()) {
         try {
           String version = getCurrentFileVersion(commitLogEntry.getVcs(), commitLogEntry.getFilePath());
-          if (version == null)
+          if (version == null) {
             version = commitLogEntry.getOldVersion();
+          }
           commitLogEntry.setNewVersion(version);
         } catch (VcsException e) {
           e.printStackTrace();
@@ -234,16 +259,18 @@ class CommitLogCheckinHandler extends CheckinHandler
     final VirtualFile file = filePath.getVirtualFile();
     if (diffProvider != null && file != null) {
       final VcsRevisionNumber revision = diffProvider.getCurrentRevision(file);
-      if (revision != null)
+      if (revision != null) {
         version = revision.asString();
+      }
     } else {
       // deleted or diff provider not supported - use alternate method but lookup will be slower.
       final VcsHistoryProvider historyProvider = vcs.getVcsHistoryProvider();
       if (historyProvider != null) {
         final VcsHistorySession session = historyProvider.createSessionFor(filePath);
         if (session != null) {
-          if (!session.getRevisionList().isEmpty())
+          if (!session.getRevisionList().isEmpty()) {
             version = session.getCurrentRevisionNumber().asString();
+          }
         }
       }
     }

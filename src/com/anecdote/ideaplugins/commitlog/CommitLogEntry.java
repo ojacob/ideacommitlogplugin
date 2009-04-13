@@ -1,12 +1,9 @@
-package com.anecdote.ideaplugins.commitlog;
-
-/**
- * Copyright 2007 Nathan Brown
+/*
+ * Copyright 2009 Nathan Brown
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *
  * http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
@@ -16,6 +13,8 @@ package com.anecdote.ideaplugins.commitlog;
  * limitations under the License.
  */
 
+package com.anecdote.ideaplugins.commitlog;
+
 import com.intellij.openapi.vcs.AbstractVcs;
 import com.intellij.openapi.vcs.FilePath;
 import com.intellij.openapi.vcs.changes.Change;
@@ -24,7 +23,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.io.File;
 
-class CommitLogEntry
+class CommitLogEntry implements Comparable
 {
   private final File _file;
   private final FilePath _filePath;
@@ -130,5 +129,34 @@ class CommitLogEntry
   public int hashCode()
   {
     return _file.hashCode();
+  }
+
+  public int compareTo(Object o)
+  {
+    int depth = getDepth(_file);
+    File otherFile = ((CommitLogEntry)o)._file;
+    int otherDepth = getDepth(otherFile);
+    if (depth == otherDepth) {
+      return _file.compareTo(otherFile);
+    }
+    if (depth < otherDepth) {
+      return +1;
+    }
+    return -1;
+  }
+
+  private static int getDepth(File file)
+  {
+    String path = file.getPath();
+    int result = 1;
+    int i = 0;
+    while (i > -1) {
+      i = path.indexOf(File.separatorChar, i);
+      if (i > -1) {
+        result++;
+        i++;
+      }
+    }
+    return result;
   }
 }

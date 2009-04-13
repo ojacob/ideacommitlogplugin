@@ -42,6 +42,9 @@
     <option name="PER_PROJECT_SETTINGS" />
     <option name="USE_PER_PROJECT_SETTINGS" value="false" />
   </component>
+  <component name="CommitLogProjectComponent">
+    <option name="textualCommitCommentTemplate" value="$COMMIT_MESSAGE$&#10;[ROOTS_SECTION]&#10;[ROOT_ENTRY]Module \[$ROOT_NAME$\]:[&#10;[ALL_FILES][FILE_ENTRY]  $CHANGE_SYMBOL$ $FILE_NAME$&#10;[/FILE_ENTRY]&#10;[/ALL_FILES][/ROOT_ENTRY][/ROOTS_SECTION]&#10;" />
+  </component>
   <component name="CompilerConfiguration">
     <option name="DEFAULT_COMPILER" value="Javac" />
     <option name="DEPLOY_AFTER_MAKE" value="0" />
@@ -63,7 +66,29 @@
     </wildcardResourcePatterns>
   </component>
   <component name="CopyrightManager" default="">
-    <module2copyright />
+    <copyright>
+      <option name="notice" value="Copyright 2009 Nathan Brown&#10;&#10;Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);&#10;you may not use this file except in compliance with the License.&#10;You may obtain a copy of the License at&#10;http://www.apache.org/licenses/LICENSE-2.0&#10;&#10;Unless required by applicable law or agreed to in writing, software&#10;distributed under the License is distributed on an &quot;AS IS&quot; BASIS,&#10;WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.&#10;See the License for the specific language governing permissions and&#10;limitations under the License." />
+      <option name="keyword" value="Copyright" />
+      <option name="myName" value="Apache" />
+      <option name="myLocal" value="true" />
+    </copyright>
+    <module2copyright>
+      <element module="All" copyright="Apache" />
+    </module2copyright>
+    <LanguageOptions name="JAVA">
+      <option name="fileTypeOverride" value="3" />
+      <option name="relativeBefore" value="true" />
+      <option name="addBlankAfter" value="true" />
+      <option name="fileLocation" value="1" />
+      <option name="block" value="true" />
+      <option name="separateBefore" value="false" />
+      <option name="separateAfter" value="false" />
+      <option name="prefixLines" value="true" />
+      <option name="lenBefore" value="80" />
+      <option name="lenAfter" value="80" />
+      <option name="box" value="false" />
+      <option name="filler" value=" " />
+    </LanguageOptions>
   </component>
   <component name="DependenciesAnalyzeManager">
     <option name="myForwardDirection" value="false" />
@@ -492,7 +517,9 @@
               <list size="0" />
             </value>
           </option>
+          <option name="ADD_EJB_TO_ENTRIES" value="true" />
           <option name="ADD_JUNIT_TO_ENTRIES" value="true" />
+          <option name="ADD_TESTNG_TO_ENTRIES" value="true" />
         </inspection_tool>
         <inspection_tool class="UnusedParameters" level="WARNING" enabled="false" />
         <inspection_tool class="UnusedReturnValue" level="WARNING" enabled="false" />
@@ -722,7 +749,7 @@
     </option>
     <option name="lastEditedConfigurable" value="Project 'Default (Template) Project'" />
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_5" assert-keyword="true" jdk-15="true" project-jdk-name="IDEA 7860" project-jdk-type="IDEA JDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_5" assert-keyword="true" jdk-15="true" project-jdk-name="IDEA 9732" project-jdk-type="IDEA JDK">
     <output url="file://$PROJECT_DIR$/classes" />
   </component>
   <component name="ResourceManagerContainer">

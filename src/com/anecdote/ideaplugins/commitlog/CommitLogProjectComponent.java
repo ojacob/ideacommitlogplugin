@@ -1,12 +1,9 @@
-package com.anecdote.ideaplugins.commitlog;
-
-/**
- * Copyright 2007 Nathan Brown
+/*
+ * Copyright 2009 Nathan Brown
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *
  * http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
@@ -16,6 +13,9 @@ package com.anecdote.ideaplugins.commitlog;
  * limitations under the License.
  */
 
+package com.anecdote.ideaplugins.commitlog;
+
+import com.intellij.openapi.actionSystem.*;
 import com.intellij.openapi.components.*;
 import com.intellij.openapi.options.Configurable;
 import com.intellij.openapi.options.ConfigurationException;
@@ -40,18 +40,24 @@ public class CommitLogProjectComponent extends CheckinHandlerFactory
   private final Project _project;
   private CommitLogWindow _commitLogWindow;
   private String _textualCommitLogTemplate;
+  private String _textualCommitCommentTemplate;
   static final String DEFAULT_COMMIT_LOG_TEMPLATE_RESOURCE = "/resources/DefaultCommitLogTemplate.txt";
+  static final String DEFAULT_COMMIT_COMMENT_TEMPLATE_RESOURCE = "/resources/DefaultCommitCommentTemplate.txt";
   public static final String DEFAULT_COMMIT_LOG_TEMPLATE = readResourceAsString(DEFAULT_COMMIT_LOG_TEMPLATE_RESOURCE);
+  public static final String DEFAULT_COMMIT_COMMENT_TEMPLATE = readResourceAsString(
+    DEFAULT_COMMIT_COMMENT_TEMPLATE_RESOURCE);
   private static final String COMMIT_LOG_ICON_NAME = "/resources/commitlog.png";
   private static final Icon COMMIT_LOG_ICON = IconLoader.getIcon(COMMIT_LOG_ICON_NAME);
   public static final String COMPONENT_NAME = "CommitLogProjectComponent";
   private CommitLogConfigurationPanel _configurationPanel;
   private boolean _generateTextualCommitLog = true;
-  public static final String VERSION = "1.0.2";
+  public static final String VERSION = "1.1";
+  private static AnAction _generateCommentAction;
+  private boolean _focusCommentTemplateEditor;
 
   public CommitLogProjectComponent()
   {
-    _project = null;
+    this(null);
   }
 
   public CommitLogProjectComponent(Project project)
@@ -63,6 +69,13 @@ public class CommitLogProjectComponent extends CheckinHandlerFactory
   {
     _vcsManager = ProjectLevelVcsManager.getInstance(_project);
     _vcsManager.registerCheckinHandlerFactory(this);
+    if (_generateCommentAction == null) {
+      _generateCommentAction = new GenerateCommentAction();
+      ActionManager.getInstance().registerAction("CommitLogPlugin.GenerateComment", _generateCommentAction);
+      DefaultActionGroup actionGroup = (DefaultActionGroup)ActionManager.getInstance().getAction(
+        "Vcs.MessageActionGroup");
+      actionGroup.add(_generateCommentAction, Constraints.LAST);
+    }
   }
 
   public void disposeComponent()
@@ -122,6 +135,11 @@ public class CommitLogProjectComponent extends CheckinHandlerFactory
   public void resetCommitLogTemplate()
   {
     _textualCommitLogTemplate = DEFAULT_COMMIT_LOG_TEMPLATE;
+  }
+
+  public void resetCommitCommentTemplate()
+  {
+    _textualCommitCommentTemplate = DEFAULT_COMMIT_COMMENT_TEMPLATE;
   }
 
   public static String readResourceAsString(String resourceName)
@@ -188,6 +206,10 @@ public class CommitLogProjectComponent extends CheckinHandlerFactory
   {
     if (_configurationPanel == null) {
       _configurationPanel = new CommitLogConfigurationPanel(this);
+      if (_focusCommentTemplateEditor) {
+        _focusCommentTemplateEditor = false;
+        _configurationPanel.setSelectedTab(1);
+      }
     }
     return _configurationPanel;
   }
@@ -236,5 +258,23 @@ public class CommitLogProjectComponent extends CheckinHandlerFactory
   public static void log(String s)
   {
     System.out.println(s);
+  }
+
+  public String getTextualCommitCommentTemplate()
+  {
+    if (_textualCommitCommentTemplate == null) {
+      resetCommitCommentTemplate();
+    }
+    return _textualCommitCommentTemplate;
+  }
+
+  public void setTextualCommitCommentTemplate(String textualCommitCommentTemplate)
+  {
+    _textualCommitCommentTemplate = textualCommitCommentTemplate;
+  }
+
+  public void setFocusCommentTemplateEditor(boolean focusCommentTemplateEditor)
+  {
+    _focusCommentTemplateEditor = focusCommentTemplateEditor;
   }
 }

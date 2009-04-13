@@ -15,24 +15,13 @@
 
 package com.anecdote.ideaplugins.commitlog;
 
-public class CommitLogSection
+public interface CommitLogTemplate
 {
-  private final String _text;
-  private final int _usedNodes;
+  String getTemplateText();
 
-  public CommitLogSection(String text, int usedNodes)
-  {
-    _text = text;
-    _usedNodes = usedNodes;
-  }
+  void setTemplateText(String text);
 
-  public int getUsedNodes()
-  {
-    return _usedNodes;
-  }
+  void reset();
 
-  public String getText()
-  {
-    return _text;
-  }
+  String getDefaultTemplateText();
 }

@@ -1,12 +1,9 @@
-package com.anecdote.ideaplugins.commitlog;
-
-/**
- * Copyright 2007 Nathan Brown
+/*
+ * Copyright 2009 Nathan Brown
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *
  * http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
@@ -16,11 +13,19 @@ package com.anecdote.ideaplugins.commitlog;
  * limitations under the License.
  */
 
-import com.intellij.openapi.vcs.FilePath;
-import com.intellij.openapi.vcs.changes.Change;
+package com.anecdote.ideaplugins.commitlog;
+
+import com.intellij.openapi.project.Project;
+import com.intellij.openapi.roots.ProjectFileIndex;
+import com.intellij.openapi.roots.ProjectRootManager;
+import com.intellij.openapi.vcs.*;
+import com.intellij.openapi.vcs.changes.*;
+import com.intellij.openapi.vfs.VirtualFile;
+import com.intellij.vcsUtil.VcsUtil;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.io.File;
 import java.text.DateFormat;
 import java.util.*;
 
@@ -45,10 +50,12 @@ class CommitLogBuilder
   private static final String MODIFIED_FILES_SECTION_START_PLACEHOLDER = "MODIFIED_FILES";
   private static final String ADDED_FILES_SECTION_START_PLACEHOLDER = "ADDED_FILES";
   private static final String DELETED_FILES_SECTION_START_PLACEHOLDER = "DELETED_FILES";
+  private static final String ALL_FILES_BY_TYPE_SECTION_START_PLACEHOLDER = "ALL_FILES_BY_TYPE";
   private static final String ALL_FILES_SECTION_START_PLACEHOLDER = "ALL_FILES";
   private static final String MODIFIED_FILES_SECTION_END_PLACEHOLDER = "/MODIFIED_FILES";
   private static final String ADDED_FILES_SECTION_END_PLACEHOLDER = "/ADDED_FILES";
   private static final String DELETED_FILES_SECTION_END_PLACEHOLDER = "/DELETED_FILES";
+  private static final String ALL_FILES_BY_TYPE_SECTION_END_PLACEHOLDER = "ALL_FILES_BY_TYPE";
   private static final String ALL_FILES_SECTION_END_PLACEHOLDER = "/ALL_FILES";
 
   private static final String FILE_ENTRY_START_PLACEHOLDER = "FILE_ENTRY";
@@ -62,14 +69,19 @@ class CommitLogBuilder
   private static final String PATH_FROM_ROOT_PLACEHOLDER = "PATH_FROM_ROOT";
   private static final String OLD_REVISION_NUMBER_PLACEHOLDER = "OLD_REVISION_NUMBER";
   private static final String NEW_REVISION_NUMBER_PLACEHOLDER = "NEW_REVISION_NUMBER";
+  private static final String CHANGE_SYMBOL_PLACEHOLDER = "CHANGE_SYMBOL";
 
   private int _fileCount;
-  private final Map<String, Map<Change.Type, Collection<CommitLogEntry>>> _commitLogEntriesByRoot =
+  private final Map<String, Map<Change.Type, Collection<CommitLogEntry>>> _commitLogEntriesByRootAndType =
     new TreeMap<String, Map<Change.Type, Collection<CommitLogEntry>>>();
   private Map<Change.Type, Collection<CommitLogEntry>> _commitLogEntriesByType =
     new EnumMap<Change.Type, Collection<CommitLogEntry>>(Change.Type.class);
+  private Map<String, Collection<CommitLogEntry>> _commitLogEntriesByRootAndPath =
+    new HashMap<String, Collection<CommitLogEntry>>();
+  private Collection<CommitLogEntry> _commitLogEntries = new TreeSet<CommitLogEntry>();
   private String _commitMessage;
   private final String _commitLogTemplate;
+  private String changeListName;
 
   CommitLogBuilder(String commitLogTemplate, String commitMessage)
   {
@@ -79,8 +91,11 @@ class CommitLogBuilder
 
   public void addCommitLogEntry(CommitLogEntry commitLogEntry)
   {
-    getCommitLogEntries(commitLogEntry.getVcsRootName(), commitLogEntry.getChangeType()).add(commitLogEntry);
+    String rootName = commitLogEntry.getVcsRootName();
+    getCommitLogEntries(rootName, commitLogEntry.getChangeType()).add(commitLogEntry);
     getCommitLogEntries(null, commitLogEntry.getChangeType()).add(commitLogEntry);
+    _commitLogEntries.add(commitLogEntry);
+    getCommitLogEntriesByRoot(rootName).add(commitLogEntry);
     _fileCount++;
   }
 
@@ -93,7 +108,7 @@ class CommitLogBuilder
   private void removeUncommittedEntriesByRoot()
   {
     for (Iterator<Map.Entry<String, Map<Change.Type, Collection<CommitLogEntry>>>> entriesByRootIterator =
-      _commitLogEntriesByRoot.entrySet().iterator(); entriesByRootIterator.hasNext();) {
+      _commitLogEntriesByRootAndType.entrySet().iterator(); entriesByRootIterator.hasNext();) {
       Map.Entry<String, Map<Change.Type, Collection<CommitLogEntry>>> rootEntry = entriesByRootIterator.next();
       Map<Change.Type, Collection<CommitLogEntry>> entriesForRootByType = rootEntry.getValue();
       _fileCount -= removeUncommittedEntriesByType(entriesForRootByType);
@@ -135,24 +150,39 @@ class CommitLogBuilder
     return result;
   }
 
-  private Collection<CommitLogEntry> getCommitLogEntries(String root, Change.Type type)
+  private Collection<CommitLogEntry> getCommitLogEntries(String root, @Nullable Change.Type type)
   {
-    Map<Change.Type, Collection<CommitLogEntry>> byRoot = getCommitLogEntriesByType(root);
-    Collection<CommitLogEntry> result = byRoot.get(type);
-    if (result == null) {
-      result = new HashSet<CommitLogEntry>();
-      byRoot.put(type, result);
+    if (type != null) {
+      Map<Change.Type, Collection<CommitLogEntry>> byRoot = getCommitLogEntriesByTypeByRoot(root);
+      Collection<CommitLogEntry> result = byRoot.get(type);
+      if (result == null) {
+        result = new HashSet<CommitLogEntry>();
+        byRoot.put(type, result);
+      }
+      return result;
+    } else {
+      return root != null ? _commitLogEntriesByRootAndPath.get(root) : _commitLogEntries;
     }
-    return result;
   }
 
-  protected Map<Change.Type, Collection<CommitLogEntry>> getCommitLogEntriesByType(String root)
+  protected Map<Change.Type, Collection<CommitLogEntry>> getCommitLogEntriesByTypeByRoot(String root)
   {
-    Map<Change.Type, Collection<CommitLogEntry>> byRoot = root != null ? _commitLogEntriesByRoot.get(root)
+    Map<Change.Type, Collection<CommitLogEntry>> byRoot = root != null ? _commitLogEntriesByRootAndType.get(root)
                                                                        : _commitLogEntriesByType;
     if (byRoot == null) {
       byRoot = new EnumMap<Change.Type, Collection<CommitLogEntry>>(Change.Type.class);
-      _commitLogEntriesByRoot.put(root, byRoot);
+      _commitLogEntriesByRootAndType.put(root, byRoot);
+    }
+    return byRoot;
+  }
+
+  protected Collection<CommitLogEntry> getCommitLogEntriesByRoot(String root)
+  {
+    Collection<CommitLogEntry> byRoot = root != null ? _commitLogEntriesByRootAndPath.get(root)
+                                                     : _commitLogEntries;
+    if (root != null && byRoot == null) {
+      byRoot = new TreeSet<CommitLogEntry>();
+      _commitLogEntriesByRootAndPath.put(root, byRoot);
     }
     return byRoot;
   }
@@ -196,16 +226,20 @@ class CommitLogBuilder
 
   private static boolean isFilesSectionEndPlaceholder(String text)
   {
-    return DELETED_FILES_SECTION_END_PLACEHOLDER.equals(text) || MODIFIED_FILES_SECTION_END_PLACEHOLDER.equals(
-      text) || ADDED_FILES_SECTION_END_PLACEHOLDER.equals(text) || ALL_FILES_SECTION_END_PLACEHOLDER.equals(
-      text);
+    return DELETED_FILES_SECTION_END_PLACEHOLDER.equals(text) ||
+           MODIFIED_FILES_SECTION_END_PLACEHOLDER.equals(text) ||
+           ADDED_FILES_SECTION_END_PLACEHOLDER.equals(text) ||
+           ALL_FILES_BY_TYPE_SECTION_END_PLACEHOLDER.equals(text) ||
+           ALL_FILES_SECTION_END_PLACEHOLDER.equals(text);
   }
 
   private static boolean isFileSectionStartPlaceholder(String text)
   {
-    return DELETED_FILES_SECTION_START_PLACEHOLDER.equals(text) || MODIFIED_FILES_SECTION_START_PLACEHOLDER.equals(
-      text) || ADDED_FILES_SECTION_START_PLACEHOLDER.equals(text) || ALL_FILES_SECTION_START_PLACEHOLDER.equals(
-      text);
+    return DELETED_FILES_SECTION_START_PLACEHOLDER.equals(text) ||
+           MODIFIED_FILES_SECTION_START_PLACEHOLDER.equals(text) ||
+           ADDED_FILES_SECTION_START_PLACEHOLDER.equals(text) ||
+           ALL_FILES_BY_TYPE_SECTION_START_PLACEHOLDER.equals(text) ||
+           ALL_FILES_SECTION_START_PLACEHOLDER.equals(text);
   }
 
   private String processCommonPlaceholders(String nodeText, Date date)
@@ -219,9 +253,9 @@ class CommitLogBuilder
     } else if (nodeText.equals(FILE_COUNT_PLACEHOLDER)) {
       nodeText = String.valueOf(_fileCount);
     } else if (nodeText.equals(ROOT_COUNT_PLACEHOLDER)) {
-      nodeText = String.valueOf(_commitLogEntriesByRoot.size());
+      nodeText = String.valueOf(_commitLogEntriesByRootAndType.size());
     } else if (nodeText.equals(ROOT_LIST_PLACEHOLDER)) {
-      nodeText = toString(_commitLogEntriesByRoot.keySet());
+      nodeText = toString(_commitLogEntriesByRootAndType.keySet());
     } else if (nodeText.equals(COMMIT_MESSAGE_PLACEHOLDER)) {
       nodeText = _commitMessage;
     } else {
@@ -236,8 +270,10 @@ class CommitLogBuilder
   )
   {
     CommitLogSection logSection;
-    if (sectionPlaceholder.equals(ALL_FILES_SECTION_START_PLACEHOLDER)) {
-      logSection = buildCommitLogFilesSection(nodes, rootName);
+    if (sectionPlaceholder.equals(ALL_FILES_BY_TYPE_SECTION_START_PLACEHOLDER)) {
+      logSection = buildCommitLogFilesSection(nodes, rootName, true);
+    } else if (sectionPlaceholder.equals(ALL_FILES_SECTION_START_PLACEHOLDER)) {
+      logSection = buildCommitLogFilesSection(nodes, rootName, false);
     } else {
       Change.Type type = null;
       if (sectionPlaceholder.equals(ADDED_FILES_SECTION_START_PLACEHOLDER)) {
@@ -275,7 +311,7 @@ class CommitLogBuilder
         text = processCommonPlaceholders(text, date);
       }
       //noinspection GetterCallInLoop
-      if (!_commitLogEntriesByRoot.isEmpty()) {
+      if (!_commitLogEntriesByRootAndType.isEmpty()) {
         result.append(text);
       }
     }
@@ -286,11 +322,12 @@ class CommitLogBuilder
   {
     final StringBuilder result = new StringBuilder(500);
     int usedNodes = 0;
-    if (_commitLogEntriesByRoot.isEmpty()) {
+    if (_commitLogEntriesByRootAndType.isEmpty()) {
       usedNodes = appendCommitLogRootEntries(result, nodes, date, null, null);
       return new CommitLogSection("", usedNodes);
     } else {
-      for (Map.Entry<String, Map<Change.Type, Collection<CommitLogEntry>>> entry : _commitLogEntriesByRoot.entrySet()) {
+      for (Map.Entry<String, Map<Change.Type, Collection<CommitLogEntry>>> entry : _commitLogEntriesByRootAndType
+        .entrySet()) {
         String rootName = entry.getKey();
         Map<Change.Type, Collection<CommitLogEntry>> logEntriesByType = entry.getValue();
         usedNodes = appendCommitLogRootEntries(result, nodes, date, rootName, logEntriesByType);
@@ -353,21 +390,25 @@ class CommitLogBuilder
 
   @NotNull
   private CommitLogSection buildCommitLogFilesSection(@NotNull List<CommitLogTemplateParser.TextTemplateNode> nodes,
-                                                      @Nullable String rootName)
+                                                      @Nullable String rootName, boolean byType)
   {
-    final CommitLogSection deleted = buildCommitLogFilesSection(nodes, rootName, Change.Type.DELETED);
-    final CommitLogSection modified = buildCommitLogFilesSection(nodes, rootName, Change.Type.MODIFICATION);
-    final CommitLogSection created = buildCommitLogFilesSection(nodes, rootName, Change.Type.NEW);
-    final int usedNodes = deleted.getUsedNodes();
-    // all used nodes should be same
-    assert (usedNodes == modified.getUsedNodes() && usedNodes == created.getUsedNodes());
-    return new CommitLogSection(deleted.getText() + modified.getText() + created.getText(), usedNodes);
+    if (byType) {
+      final CommitLogSection deleted = buildCommitLogFilesSection(nodes, rootName, Change.Type.DELETED);
+      final CommitLogSection modified = buildCommitLogFilesSection(nodes, rootName, Change.Type.MODIFICATION);
+      final CommitLogSection created = buildCommitLogFilesSection(nodes, rootName, Change.Type.NEW);
+      final int usedNodes = deleted.getUsedNodes();
+      // all used nodes should be same
+      assert (usedNodes == modified.getUsedNodes() && usedNodes == created.getUsedNodes());
+      return new CommitLogSection(deleted.getText() + modified.getText() + created.getText(), usedNodes);
+    } else {
+      return buildCommitLogFilesSection(nodes, rootName, (Change.Type)null);
+    }
   }
 
   @NotNull
   @SuppressWarnings({"AssignmentToForLoopParameter"})
   private CommitLogSection buildCommitLogFilesSection(@NotNull List<CommitLogTemplateParser.TextTemplateNode> nodes,
-                                                      @Nullable String rootName, Change.Type type)
+                                                      @Nullable String rootName, @Nullable Change.Type type)
   {
     int usedNodes = 0;
     @Nullable final Collection<CommitLogEntry> entries = getCommitLogEntries(rootName, type);
@@ -410,12 +451,14 @@ class CommitLogBuilder
   @NotNull
   private static CommitLogSection buildCommitLogFileEntries(
     @NotNull List<CommitLogTemplateParser.TextTemplateNode> followingNodes,
-    Change.Type type, Collection<CommitLogEntry> entries)
+    Change.Type defaultType, Collection<CommitLogEntry> entries)
   {
     int usedNodes = 0;
     final StringBuilder result = new StringBuilder(500);
     for (final CommitLogEntry entry : entries) {
-      CommitLogSection logSection = buildCommitLogFileEntry(followingNodes, type, entry);
+      CommitLogSection logSection = buildCommitLogFileEntry(followingNodes,
+                                                            defaultType,
+                                                            entry);
       result.append(logSection.getText());
       usedNodes = logSection.getUsedNodes();
     }
@@ -424,9 +467,10 @@ class CommitLogBuilder
 
   @SuppressWarnings({"GetterCallInLoop"})
   private static CommitLogSection buildCommitLogFileEntry(List<CommitLogTemplateParser.TextTemplateNode> followingNodes,
-                                                          Change.Type type,
+                                                          Change.Type defaultType,
                                                           @Nullable CommitLogEntry entry)
   {
+    Change.Type type = entry != null ? entry.getChangeType() : defaultType;
     int usedNodes = 0;
     final StringBuilder result = new StringBuilder(500);
     @Nullable final FilePath filePath = entry != null ? entry.getFilePath() : null;
@@ -447,7 +491,7 @@ class CommitLogBuilder
                  MODIFIED_FILES_SECTION_END_PLACEHOLDER + CommitLogTemplateParser.BLOCK_PLACEHOLDER_CLOSE_SYMBOL +
                  " or " +
                  CommitLogTemplateParser.BLOCK_PLACEHOLDER_OPEN_SYMBOL +
-                 ALL_FILES_SECTION_END_PLACEHOLDER + CommitLogTemplateParser.BLOCK_PLACEHOLDER_CLOSE_SYMBOL;
+                 ALL_FILES_BY_TYPE_SECTION_END_PLACEHOLDER + CommitLogTemplateParser.BLOCK_PLACEHOLDER_CLOSE_SYMBOL;
         }
 //        else if (isFilesSectionEndPlaceholder(text)) {
 //          // they've forgotten the ENTRY_END, pretend ENTRY_END
@@ -462,11 +506,11 @@ class CommitLogBuilder
           } else if (text.equals(FILE_PATH_PLACEHOLDER)) {
             text = filePath != null ? filePath.getPath() : "<no file>";
           } else if (text.equals(FILE_ACTION_PLACEHOLDER)) {
-            if (type == Change.Type.DELETED) {
+            if (defaultType == Change.Type.DELETED) {
               text = "Removed";
-            } else if (type == Change.Type.MODIFICATION) {
+            } else if (defaultType == Change.Type.MODIFICATION) {
               text = "Modified";
-            } else if (type == Change.Type.NEW) {
+            } else if (defaultType == Change.Type.NEW) {
               text = "Added";
             }
           } else if (text.equals(ROOT_NAME_PLACEHOLDER)) {
@@ -476,16 +520,24 @@ class CommitLogBuilder
           } else if (text.equals(PACKAGE_PATH_PLACEHOLDER) || text.equals(PATH_FROM_ROOT_PLACEHOLDER)) {
             text = entry.getPathFromRoot();
           } else if (text.equals(OLD_REVISION_NUMBER_PLACEHOLDER)) {
-            if (entry.getOldVersion() == null || type == Change.Type.NEW) {
+            if (entry.getOldVersion() == null || defaultType == Change.Type.NEW) {
               text = "Added";
             } else {
               text = entry.getOldVersion();
             }
           } else if (text.equals(NEW_REVISION_NUMBER_PLACEHOLDER)) {
-            if (entry.getNewVersion() == null || type == Change.Type.DELETED) {
+            if (entry.getNewVersion() == null || defaultType == Change.Type.DELETED) {
               text = "Removed";
             } else {
               text = entry.getNewVersion();
+            }
+          } else if (text.equals(CHANGE_SYMBOL_PLACEHOLDER)) {
+            if (entry.getOldVersion() == null || defaultType == Change.Type.NEW) {
+              text = "+";
+            } else if (defaultType == Change.Type.DELETED) {
+              text = "-";
+            } else {
+              text = "*";
             }
           } else {
             text = "Illegal Placeholder : " + CommitLogTemplateParser.VALUE_PLACEHOLDER_SYMBOL + text +
@@ -514,5 +566,79 @@ class CommitLogBuilder
       }
     }
     return stringBuilder.toString();
+  }
+
+  public String getChangeListName()
+  {
+    return changeListName;
+  }
+
+  public void setChangeListName(String changeListName)
+  {
+    this.changeListName = changeListName;
+  }
+
+  public static CommitLogBuilder createCommitLogBuilder(String template, CheckinProjectPanel panel)
+  {
+    CommitLogBuilder commitLogBuilder = new CommitLogBuilder(template, panel.getCommitMessage());
+    final List<AbstractVcs> affectedVcses = panel.getAffectedVcses();
+    final Collection<File> files = panel.getFiles();
+    for (final File file : files) {
+      final FilePath filePath = file.exists() ?
+                                VcsUtil.getFilePath(file) : VcsUtil.getFilePathForDeletedFile(file.getPath(),
+                                                                                              false);
+      Project project = panel.getProject();
+      ChangeListManager changeListManager = ChangeListManager.getInstance(project);
+      final Change change = changeListManager.getChange(filePath);
+      if (commitLogBuilder.getChangeListName() == null) {
+        commitLogBuilder.setChangeListName(changeListManager.getChangeList(change).getName());
+      }
+      if (change != null) {
+        final Change.Type changeType = change.getType();
+        final ContentRevision beforeRevision = changeType == Change.Type.NEW ? null : change.getBeforeRevision();
+        final VirtualFile vcsRoot = VcsUtil.getVcsRootFor(project, filePath);
+        final String vcsRootName = vcsRoot != null ? vcsRoot.getPresentableName() : "";
+        for (final AbstractVcs affectedVcs : affectedVcses) {
+          if (affectedVcs.fileIsUnderVcs(filePath)) {
+            String packageName = getPackageName(project, filePath);
+            String pathFromRoot = getPathFromRoot(vcsRoot, filePath);
+            final CommitLogEntry commitLogEntry = new CommitLogEntry(file, filePath, vcsRootName, pathFromRoot,
+                                                                     packageName, affectedVcs,
+                                                                     changeType);
+            commitLogBuilder.addCommitLogEntry(commitLogEntry);
+            if (beforeRevision != null) {
+              commitLogEntry.setOldVersion(beforeRevision.getRevisionNumber().asString());
+            }
+            break;
+          }
+        }
+      }
+    }
+    return commitLogBuilder;
+  }
+
+  static String getPathFromRoot(VirtualFile vcsRoot, FilePath filePath)
+  {
+    String pathFromRoot = null;
+    FilePath path = filePath.getParentPath();
+    while (path != null && !path.getVirtualFile().equals(vcsRoot)) {
+      String name = path.getName();
+      pathFromRoot = pathFromRoot != null ? name + '/' + pathFromRoot : name;
+      path = path.getParentPath();
+    }
+    return pathFromRoot;
+  }
+
+  static String getPackageName(Project project, FilePath filePath)
+  {
+    String text;
+    final VirtualFile parent = filePath.getVirtualFileParent();
+    final ProjectFileIndex projectFileIndex = ProjectRootManager.getInstance(project).getFileIndex();
+    if (parent != null) {
+      text = projectFileIndex.getPackageNameByDirectory(parent);
+    } else {
+      text = "";
+    }
+    return text;
   }
 }

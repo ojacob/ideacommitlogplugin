@@ -1,12 +1,9 @@
-package com.anecdote.ideaplugins.commitlog;
-
-/**
- * Copyright 2007 Nathan Brown
+/*
+ * Copyright 2009 Nathan Brown
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *
  * http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
@@ -16,24 +13,22 @@ package com.anecdote.ideaplugins.commitlog;
  * limitations under the License.
  */
 
+package com.anecdote.ideaplugins.commitlog;
+
 import com.intellij.openapi.editor.*;
 import com.intellij.openapi.project.Project;
-import com.intellij.openapi.roots.ProjectFileIndex;
-import com.intellij.openapi.roots.ProjectRootManager;
 import com.intellij.openapi.vcs.*;
-import com.intellij.openapi.vcs.changes.*;
+import com.intellij.openapi.vcs.changes.Change;
 import com.intellij.openapi.vcs.checkin.CheckinHandler;
 import com.intellij.openapi.vcs.diff.DiffProvider;
 import com.intellij.openapi.vcs.history.*;
 import com.intellij.openapi.vcs.ui.RefreshableOnComponent;
 import com.intellij.openapi.vfs.VirtualFile;
-import com.intellij.vcsUtil.VcsUtil;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import javax.swing.*;
 import java.awt.*;
-import java.io.File;
 import java.text.DateFormat;
 import java.util.*;
 import java.util.List;
@@ -46,7 +41,6 @@ class CommitLogCheckinHandler extends CheckinHandler
   private final CommitLogProjectComponent _projectComponent;
   private final Project _project;
   private final CheckinProjectPanel _panel;
-  private String _changeListName;
   private CommitLogBuilder _commitLogBuilder;
   private CommitLogCheckinHandler.AfterCheckinConfigPanel _afterCheckinConfigPanel = new AfterCheckinConfigPanel();
 
@@ -71,58 +65,14 @@ class CommitLogCheckinHandler extends CheckinHandler
     CommitLogProjectComponent.log("CommitLogCheckinHandler::beforeCheckin Entered");
     final ReturnResult returnResult = super.beforeCheckin();
     if (_projectComponent.isGenerateTextualCommitLog()) {
-      _commitLogBuilder = new CommitLogBuilder(_projectComponent.getTextualCommitLogTemplate(),
-                                               _panel.getCommitMessage());
       try {
-        final List<AbstractVcs> affectedVcses = _panel.getAffectedVcses();
-        final Collection<File> files = _panel.getFiles();
-        for (final File file : files) {
-          final FilePath filePath = file.exists() ?
-                                    VcsUtil.getFilePath(file) : VcsUtil.getFilePathForDeletedFile(file.getPath(),
-                                                                                                  false);
-          ChangeListManager changeListManager = ChangeListManager.getInstance(_project);
-          final Change change = changeListManager.getChange(filePath);
-          if (_changeListName == null) {
-            _changeListName = changeListManager.getChangeList(change).getName();
-          }
-          if (change != null) {
-            final Change.Type changeType = change.getType();
-            final ContentRevision beforeRevision = changeType == Change.Type.NEW ? null : change.getBeforeRevision();
-            final VirtualFile vcsRoot = VcsUtil.getVcsRootFor(_project, filePath);
-            final String vcsRootName = vcsRoot != null ? vcsRoot.getPresentableName() : "";
-            for (final AbstractVcs affectedVcs : affectedVcses) {
-              if (affectedVcs.fileIsUnderVcs(filePath)) {
-                String packageName = getPackageName(filePath);
-                String pathFromRoot = getPathFromRoot(vcsRoot, filePath);
-                final CommitLogEntry commitLogEntry = new CommitLogEntry(file, filePath, vcsRootName, pathFromRoot,
-                                                                         packageName, affectedVcs,
-                                                                         changeType);
-                _commitLogBuilder.addCommitLogEntry(commitLogEntry);
-                if (beforeRevision != null) {
-                  commitLogEntry.setOldVersion(beforeRevision.getRevisionNumber().asString());
-                }
-                break;
-              }
-            }
-          }
-        }
+        _commitLogBuilder = CommitLogBuilder.createCommitLogBuilder(_projectComponent.getTextualCommitLogTemplate(),
+                                                                    _panel);
       } catch (Exception e) {
         e.printStackTrace(); // protect IDE
       }
     }
     return returnResult;
-  }
-
-  private static String getPathFromRoot(VirtualFile vcsRoot, FilePath filePath)
-  {
-    String pathFromRoot = null;
-    FilePath path = filePath.getParentPath();
-    while (path != null && !path.getVirtualFile().equals(vcsRoot)) {
-      String name = path.getName();
-      pathFromRoot = pathFromRoot != null ? name + '/' + pathFromRoot : name;
-      path = path.getParentPath();
-    }
-    return pathFromRoot;
   }
 
   @Override
@@ -133,7 +83,7 @@ class CommitLogCheckinHandler extends CheckinHandler
       super.checkinFailed(exception);
       if (_projectComponent.isGenerateTextualCommitLog()) {
         outputCommitLog(true);
-        _changeListName = null;
+        _commitLogBuilder = null;
       }
     } catch (Exception e) {
       // protect IDE
@@ -153,7 +103,7 @@ class CommitLogCheckinHandler extends CheckinHandler
     } catch (Exception e) {
       e.printStackTrace(); // protect ide
     }
-    _changeListName = null;
+    _commitLogBuilder = null;
   }
 
   private void outputCommitLog(final boolean failed)
@@ -190,7 +140,7 @@ class CommitLogCheckinHandler extends CheckinHandler
     } catch (CommitLogTemplateParser.TextTemplateParserException e) {
       commitLog = e.getMessage();
     }
-    final String changeListName = _changeListName;
+    final String changeListName = _commitLogBuilder.getChangeListName();
 //      CommitLogProjectComponent.log(commitLog);
     final String finalCommitLog = commitLog;
     SwingUtilities.invokeLater(new Runnable()
@@ -221,7 +171,7 @@ class CommitLogCheckinHandler extends CheckinHandler
   private void updateEntryVersions()
   {
     final Set<Map.Entry<Change.Type, Collection<CommitLogEntry>>> entries =
-      _commitLogBuilder.getCommitLogEntriesByType(null).entrySet();
+      _commitLogBuilder.getCommitLogEntriesByTypeByRoot(null).entrySet();
     for (final Map.Entry<Change.Type, Collection<CommitLogEntry>> mapEntry : entries) {
       for (final CommitLogEntry commitLogEntry : mapEntry.getValue()) {
         try {
@@ -235,19 +185,6 @@ class CommitLogCheckinHandler extends CheckinHandler
         }
       }
     }
-  }
-
-  private String getPackageName(FilePath filePath)
-  {
-    String text;
-    final VirtualFile parent = filePath.getVirtualFileParent();
-    final ProjectFileIndex projectFileIndex = ProjectRootManager.getInstance(_project).getFileIndex();
-    if (parent != null) {
-      text = projectFileIndex.getPackageNameByDirectory(parent);
-    } else {
-      text = "";
-    }
-    return text;
   }
 
   @Nullable

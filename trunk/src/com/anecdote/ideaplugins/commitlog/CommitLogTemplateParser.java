@@ -1,12 +1,9 @@
-package com.anecdote.ideaplugins.commitlog;
-
-/**
- * Copyright 2007 Nathan Brown
+/*
+ * Copyright 2009 Nathan Brown
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *
  * http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
@@ -15,6 +12,8 @@ package com.anecdote.ideaplugins.commitlog;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
+package com.anecdote.ideaplugins.commitlog;
 
 import java.util.*;
 
@@ -42,7 +41,8 @@ public class CommitLogTemplateParser
         nextLocation += token.length();
         if (VALUE_PLACEHOLDER_SYMBOL.equals(token)) {
           if (inBlockPlaceholder) {
-            throwParserException("Block placeholders may not contain '" + VALUE_PLACEHOLDER_SYMBOL + '\'', tokenLocation);
+            throwParserException("Block placeholders may not contain '" + VALUE_PLACEHOLDER_SYMBOL + '\'',
+                                 tokenLocation);
           }
           inPlaceholder = !inPlaceholder;
         } else if (BLOCK_PLACEHOLDER_OPEN_SYMBOL.equals(token)) {
@@ -60,7 +60,7 @@ public class CommitLogTemplateParser
           } else {
             throwParserException("Template may not contain unescaped '" +
                                  BLOCK_PLACEHOLDER_CLOSE_SYMBOL + "' - use '" + ESCAPE_SYMBOL +
-                                                                                              BLOCK_PLACEHOLDER_CLOSE_SYMBOL + "' instead", tokenLocation);
+                                 BLOCK_PLACEHOLDER_CLOSE_SYMBOL + "' instead", tokenLocation);
           }
         } else {
           if (ESCAPE_SYMBOL.equals(token)) {
@@ -72,22 +72,23 @@ public class CommitLogTemplateParser
                   !BLOCK_PLACEHOLDER_CLOSE_SYMBOL.equals(token) && !BLOCK_PLACEHOLDER_OPEN_SYMBOL.equals(token)) {
                 throwParserException('\'' + ESCAPE_SYMBOL + "' may only precede '" + VALUE_PLACEHOLDER_SYMBOL
                                      + "', '" + BLOCK_PLACEHOLDER_OPEN_SYMBOL + "', '" +
-                                                                                       BLOCK_PLACEHOLDER_CLOSE_SYMBOL + "' or '" + ESCAPE_SYMBOL +
-                                                                                                 '\'', tokenLocation);
+                                     BLOCK_PLACEHOLDER_CLOSE_SYMBOL + "' or '" + ESCAPE_SYMBOL +
+                                     '\'', tokenLocation);
               }
             } else {
               throwParserException('\'' + ESCAPE_SYMBOL + "' must be followed by '" + VALUE_PLACEHOLDER_SYMBOL
                                    + "', '" + BLOCK_PLACEHOLDER_OPEN_SYMBOL + "', '" +
-                                                                                     BLOCK_PLACEHOLDER_CLOSE_SYMBOL + "' or '" + ESCAPE_SYMBOL +
-                                                                                               '\'', tokenLocation);
+                                   BLOCK_PLACEHOLDER_CLOSE_SYMBOL + "' or '" + ESCAPE_SYMBOL +
+                                   '\'', tokenLocation);
             }
           }
           if (inPlaceholder) {
             if (inBlockPlaceholder) {
               if (tokens.hasMoreTokens()) {
-                if (token.contains("\n"))
+                if (token.contains("\n")) {
                   throwParserException("Block Placeholders may not contain linefeeds",
                                        tokenLocation + token.indexOf('\n') - 1);
+                }
                 result.add(createTextTemplateNode(TextTemplateNodeType.BLOCK_PLACEHOLDER_NODE, token, tokenLocation));
               } else {
                 throwParserException("Opening " + BLOCK_PLACEHOLDER_OPEN_SYMBOL +
@@ -96,9 +97,10 @@ public class CommitLogTemplateParser
               }
             } else {
               if (tokens.hasMoreTokens()) {
-                if (token.contains("\n"))
+                if (token.contains("\n")) {
                   throwParserException("Value Placeholders may not contain linefeeds",
                                        tokenLocation + token.indexOf('\n') - 1);
+                }
                 result.add(createTextTemplateNode(TextTemplateNodeType.VALUE_PLACEHOLDER_NODE, token, tokenLocation));
               } else {
                 throwParserException("Opening " + VALUE_PLACEHOLDER_SYMBOL + " detected with no closing " +
@@ -153,8 +155,9 @@ public class CommitLogTemplateParser
     }
   }
 
-  protected CommitLogTemplateParser.TextTemplateNode createTextTemplateNode(final TextTemplateNodeType type, final String text,
-                                                                   final int location)
+  protected CommitLogTemplateParser.TextTemplateNode createTextTemplateNode(final TextTemplateNodeType type,
+                                                                            final String text,
+                                                                            final int location)
   {
     return new CommitLogTemplateParser.TextTemplateNode()
     {

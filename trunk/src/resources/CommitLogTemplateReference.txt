@@ -14,7 +14,7 @@ The value placeholders supported throughout the whole template are as follows:
 * $DATE_TIME$ : The date and time that the commit was performed.
 
 The block placeholders supported throughout the template are as follows:
-* [ROOT_SECTION]...[/ROOT_SECTION] : May be wrapped around any part of the template.  This block will only be processed if there are files committed. Within the [ROOT_SECTION] block, a [ROOT_ENTRY] block should be placed.  This will be processed for every vcs root affected by the commit, and all processing within the [ROOT_ENTRY] block will be specific to the vcs root.
+* [ROOTS_SECTION]...[/ROOTS_SECTION] : May be wrapped around any part of the template.  This block will only be processed if there are files committed. Within the [ROOT_SECTION] block, a [ROOT_ENTRY] block should be placed.  This will be processed for every vcs root affected by the commit, and all processing within the [ROOT_ENTRY] block will be specific to the vcs root.
 * [DELETED_FILES]...[/DELETED_FILES] : This block will only be processed if there are deleted files in the commit, or in the vcs root if embedded in a [ROOT_ENTRY] block.
 * [MODIFIED_FILES]...[/MODIFIED_FILES] : This block will only be processed if there are modified files in the commit, or in the vcs root if embedded in a [ROOT_ENTRY] block.
 * [ADDED_FILES]...[/ADDED_FILES] : This block will only be processed if there are added files in the commit, or in the vcs root if embedded in a [ROOT_ENTRY] block.
@@ -31,5 +31,6 @@ The value placeholders supported in the [FILE_ENTRY] block are as follows:
 * $FILE_ACTION$ : The action undertaken on the file during commit; either 'Removed', 'Modified' or 'Added'.
 * $OLD_REVISION_NUMBER$ : The revision number of the file before commit.
 * $NEW_REVISION_NUMBER$ : The revision number of the file after commit.
+* $CHANGE_SYMBOL$ : A symbol reflecting the change in a file : + for added, - for deleted, and * for changed.
 
 If you wish to place a literal '$', '[', ']' or '\' into the template, it should be prefixed with the escape character '\'.  Note that whitespace and newlines are fully retained during template processing.

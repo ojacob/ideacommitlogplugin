@@ -75,6 +75,11 @@ public class CommitLogProjectComponent extends CheckinHandlerFactory
       DefaultActionGroup actionGroup = (DefaultActionGroup)ActionManager.getInstance().getAction(
         "Vcs.MessageActionGroup");
       actionGroup.add(_generateCommentAction, Constraints.LAST);
+      actionGroup = (DefaultActionGroup)ActionManager.getInstance().getAction(
+        "CHANGES_BAR_COMMIT_COMMENT_ACTIONS");
+      if (actionGroup != null) {
+        actionGroup.add(_generateCommentAction, Constraints.FIRST);
+      }
     }
   }
 

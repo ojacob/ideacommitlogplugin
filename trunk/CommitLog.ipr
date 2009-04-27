@@ -42,9 +42,6 @@
     <option name="PER_PROJECT_SETTINGS" />
     <option name="USE_PER_PROJECT_SETTINGS" value="false" />
   </component>
-  <component name="CommitLogProjectComponent">
-    <option name="textualCommitCommentTemplate" value="$COMMIT_MESSAGE$&#10;[ROOTS_SECTION]&#10;[ROOT_ENTRY]Module \[$ROOT_NAME$\]:[&#10;[ALL_FILES][FILE_ENTRY]  $CHANGE_SYMBOL$ $FILE_NAME$&#10;[/FILE_ENTRY]&#10;[/ALL_FILES][/ROOT_ENTRY][/ROOTS_SECTION]&#10;" />
-  </component>
   <component name="CompilerConfiguration">
     <option name="DEFAULT_COMPILER" value="Javac" />
     <option name="DEPLOY_AFTER_MAKE" value="0" />

@@ -67,7 +67,9 @@ class CommitLogCheckinHandler extends CheckinHandler
     if (_projectComponent.isGenerateTextualCommitLog()) {
       try {
         _commitLogBuilder = CommitLogBuilder.createCommitLogBuilder(_projectComponent.getTextualCommitLogTemplate(),
-                                                                    _panel);
+                                                                    _panel.getCommitMessage(), _panel.getProject(),
+                                                                    _panel.getAffectedVcses(),
+                                                                    _panel.getFiles());
       } catch (Exception e) {
         e.printStackTrace(); // protect IDE
       }

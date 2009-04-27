@@ -18,7 +18,8 @@ package com.anecdote.ideaplugins.commitlog;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.roots.ProjectFileIndex;
 import com.intellij.openapi.roots.ProjectRootManager;
-import com.intellij.openapi.vcs.*;
+import com.intellij.openapi.vcs.AbstractVcs;
+import com.intellij.openapi.vcs.FilePath;
 import com.intellij.openapi.vcs.changes.*;
 import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.vcsUtil.VcsUtil;
@@ -578,16 +579,16 @@ class CommitLogBuilder
     this.changeListName = changeListName;
   }
 
-  public static CommitLogBuilder createCommitLogBuilder(String template, CheckinProjectPanel panel)
+  public static CommitLogBuilder createCommitLogBuilder(String template,
+                                                        String commitMessage, Project project,
+                                                        List<AbstractVcs> affectedVcses,
+                                                        Collection<File> files)
   {
-    CommitLogBuilder commitLogBuilder = new CommitLogBuilder(template, panel.getCommitMessage());
-    final List<AbstractVcs> affectedVcses = panel.getAffectedVcses();
-    final Collection<File> files = panel.getFiles();
+    CommitLogBuilder commitLogBuilder = new CommitLogBuilder(template, commitMessage);
     for (final File file : files) {
       final FilePath filePath = file.exists() ?
                                 VcsUtil.getFilePath(file) : VcsUtil.getFilePathForDeletedFile(file.getPath(),
                                                                                               false);
-      Project project = panel.getProject();
       ChangeListManager changeListManager = ChangeListManager.getInstance(project);
       final Change change = changeListManager.getChange(filePath);
       if (commitLogBuilder.getChangeListName() == null) {

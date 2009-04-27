@@ -17,15 +17,6 @@
         <SOURCES />
       </library>
     </orderEntry>
-    <orderEntry type="module-library">
-      <library>
-        <CLASSES>
-          <root url="jar://$MODULE_DIR$/../../../IDEA/Settings_Diana/config/plugins/Code Review/lib/Code Review.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
   </component>
   <component name="PluginUploader.PluginUploadConfigurable">
     <option name="ARCHIVE_PATH" />

@@ -15,6 +15,7 @@
 
 package com.anecdote.ideaplugins.commitlog;
 
+import com.intellij.openapi.Disposable;
 import com.intellij.openapi.editor.*;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.vcs.*;
@@ -52,8 +53,7 @@ class CommitLogCheckinHandler extends CheckinHandler
   }
 
   @Override
-  @Nullable
-  public RefreshableOnComponent getAfterCheckinConfigurationPanel()
+  public RefreshableOnComponent getAfterCheckinConfigurationPanel(Disposable parentDisposable)
   {
     return _afterCheckinConfigPanel;
   }
@@ -66,11 +66,11 @@ class CommitLogCheckinHandler extends CheckinHandler
     final ReturnResult returnResult = super.beforeCheckin();
     if (_projectComponent.isGenerateTextualCommitLog()) {
       try {
+        List<AbstractVcs> affectedVcses = new ArrayList<AbstractVcs>();
         _commitLogBuilder = CommitLogBuilder.createCommitLogBuilder(_projectComponent.getTextualCommitLogTemplate(),
                                                                     _panel.getCommitMessage(), _panel.getProject(),
-                                                                    _panel.getAffectedVcses(),
                                                                     _panel.getFiles());
-      } catch (Exception e) {
+      } catch (Throwable e) {
         e.printStackTrace(); // protect IDE
       }
     }
@@ -87,7 +87,7 @@ class CommitLogCheckinHandler extends CheckinHandler
         outputCommitLog(true);
         _commitLogBuilder = null;
       }
-    } catch (Exception e) {
+    } catch (Throwable e) {
       // protect IDE
       e.printStackTrace();
     }
@@ -102,7 +102,7 @@ class CommitLogCheckinHandler extends CheckinHandler
         super.checkinSuccessful();
         outputCommitLog(false);
       }
-    } catch (Exception e) {
+    } catch (Throwable e) {
       e.printStackTrace(); // protect ide
     }
     _commitLogBuilder = null;

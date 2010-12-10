@@ -81,10 +81,8 @@ class GenerateCommentAction extends AnAction
           CommitLogProjectComponent projectComponent = project.getComponent(CommitLogProjectComponent.class);
           String commitMessage;
           Collection<File> files;
-          List<AbstractVcs> affectedVcses;
           if (panel != null) {
             commitMessage = panel.getCommitMessage();
-            affectedVcses = panel.getAffectedVcses();
             files = panel.getFiles();
           } else {
             commitMessage = commentEditor.getText();
@@ -93,17 +91,14 @@ class GenerateCommentAction extends AnAction
               return;
             }
             ProjectLevelVcsManager vcsManager = ProjectLevelVcsManager.getInstance(project);
-            affectedVcses = new ArrayList<AbstractVcs>();
             files = new HashSet<File>();
             for (Change change : changeList.getChanges()) {
               FilePath filepath = ChangesUtil.getFilePath(change);
               files.add(filepath.getIOFile());
-              AbstractVcs vcs = vcsManager.getVcsFor(filepath);
-              affectedVcses.add(vcs);
             }
           }
           CommitLogBuilder commitLogBuilder = CommitLogBuilder.createCommitLogBuilder(
-            projectComponent.getTextualCommitCommentTemplate(), commitMessage, project, affectedVcses, files);
+            projectComponent.getTextualCommitCommentTemplate(), commitMessage, project, files);
           try {
             String commitLog = commitLogBuilder.buildCommitLog(new Date());
             if (panel != null) {

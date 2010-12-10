@@ -109,7 +109,7 @@ class CommitLogBuilder
   private void removeUncommittedEntriesByRoot()
   {
     for (Iterator<Map.Entry<String, Map<Change.Type, Collection<CommitLogEntry>>>> entriesByRootIterator =
-      _commitLogEntriesByRootAndType.entrySet().iterator(); entriesByRootIterator.hasNext();) {
+           _commitLogEntriesByRootAndType.entrySet().iterator(); entriesByRootIterator.hasNext();) {
       Map.Entry<String, Map<Change.Type, Collection<CommitLogEntry>>> rootEntry = entriesByRootIterator.next();
       Map<Change.Type, Collection<CommitLogEntry>> entriesForRootByType = rootEntry.getValue();
       _fileCount -= removeUncommittedEntriesByType(entriesForRootByType);
@@ -507,11 +507,11 @@ class CommitLogBuilder
           } else if (text.equals(FILE_PATH_PLACEHOLDER)) {
             text = filePath != null ? filePath.getPath() : "<no file>";
           } else if (text.equals(FILE_ACTION_PLACEHOLDER)) {
-            if (defaultType == Change.Type.DELETED) {
+            if (type == Change.Type.DELETED) {
               text = "Removed";
-            } else if (defaultType == Change.Type.MODIFICATION) {
+            } else if (type == Change.Type.MODIFICATION) {
               text = "Modified";
-            } else if (defaultType == Change.Type.NEW) {
+            } else if (type == Change.Type.NEW) {
               text = "Added";
             }
           } else if (text.equals(ROOT_NAME_PLACEHOLDER)) {
@@ -521,21 +521,21 @@ class CommitLogBuilder
           } else if (text.equals(PACKAGE_PATH_PLACEHOLDER) || text.equals(PATH_FROM_ROOT_PLACEHOLDER)) {
             text = entry.getPathFromRoot();
           } else if (text.equals(OLD_REVISION_NUMBER_PLACEHOLDER)) {
-            if (entry.getOldVersion() == null || defaultType == Change.Type.NEW) {
+            if (entry.getOldVersion() == null || type == Change.Type.NEW) {
               text = "Added";
             } else {
               text = entry.getOldVersion();
             }
           } else if (text.equals(NEW_REVISION_NUMBER_PLACEHOLDER)) {
-            if (entry.getNewVersion() == null || defaultType == Change.Type.DELETED) {
+            if (entry.getNewVersion() == null || type == Change.Type.DELETED) {
               text = "Removed";
             } else {
               text = entry.getNewVersion();
             }
           } else if (text.equals(CHANGE_SYMBOL_PLACEHOLDER)) {
-            if (entry.getOldVersion() == null || defaultType == Change.Type.NEW) {
+            if (entry.getOldVersion() == null || type == Change.Type.NEW) {
               text = "+";
-            } else if (defaultType == Change.Type.DELETED) {
+            } else if (type == Change.Type.DELETED) {
               text = "-";
             } else {
               text = "*";
@@ -581,7 +581,6 @@ class CommitLogBuilder
 
   public static CommitLogBuilder createCommitLogBuilder(String template,
                                                         String commitMessage, Project project,
-                                                        List<AbstractVcs> affectedVcses,
                                                         Collection<File> files)
   {
     CommitLogBuilder commitLogBuilder = new CommitLogBuilder(template, commitMessage);
@@ -599,18 +598,16 @@ class CommitLogBuilder
         final ContentRevision beforeRevision = changeType == Change.Type.NEW ? null : change.getBeforeRevision();
         final VirtualFile vcsRoot = VcsUtil.getVcsRootFor(project, filePath);
         final String vcsRootName = vcsRoot != null ? vcsRoot.getPresentableName() : "";
-        for (final AbstractVcs affectedVcs : affectedVcses) {
-          if (affectedVcs.fileIsUnderVcs(filePath)) {
-            String packageName = getPackageName(project, filePath);
-            String pathFromRoot = getPathFromRoot(vcsRoot, filePath);
-            final CommitLogEntry commitLogEntry = new CommitLogEntry(file, filePath, vcsRootName, pathFromRoot,
-                                                                     packageName, affectedVcs,
-                                                                     changeType);
-            commitLogBuilder.addCommitLogEntry(commitLogEntry);
-            if (beforeRevision != null) {
-              commitLogEntry.setOldVersion(beforeRevision.getRevisionNumber().asString());
-            }
-            break;
+        AbstractVcs vcs = VcsUtil.getVcsFor(project, filePath);
+        if (vcs != null) {
+          String packageName = getPackageName(project, filePath);
+          String pathFromRoot = getPathFromRoot(vcsRoot, filePath);
+          final CommitLogEntry commitLogEntry = new CommitLogEntry(file, filePath, vcsRootName, pathFromRoot,
+                                                                   packageName, vcs,
+                                                                   changeType);
+          commitLogBuilder.addCommitLogEntry(commitLogEntry);
+          if (beforeRevision != null) {
+            commitLogEntry.setOldVersion(beforeRevision.getRevisionNumber().asString());
           }
         }
       }

@@ -624,7 +624,7 @@ class CommitLogBuilder
       pathFromRoot = pathFromRoot != null ? name + '/' + pathFromRoot : name;
       path = path.getParentPath();
     }
-    return pathFromRoot;
+    return pathFromRoot != null ? pathFromRoot : "";
   }
 
   static String getPackageName(Project project, FilePath filePath)

@@ -15,11 +15,13 @@
   * Improve template editing.<br>
   * Add configuration of text used for change types.<br>
   ]]></description>
-  <version>1.2</version>
+  <version>1.2.1</version>
   <!--Don't forget to update the version CONSTANT!!!-->
   <vendor email="anecdotesoftware@gmail.com" url="http://code.google.com/p/ideacommitlogplugin/">Nathan Brown</vendor>
   <idea-version since-build="99.18"/>
   <change-notes><![CDATA[
+    1.2.1 - Fixed NPE when current version of deleted file cannot be accessed.<br>
+            Fixed null being inserted for PATH_FROM_ROOT placeholder when file is at root (https://code.google.com/p/ideacommitlogplugin/issues/detail?id=3)<br>
     1.2   - Rebuilt for IDEA 10.<br>
     1.1.1 - Fixed incorrect change type reported for deleted files<br>
     1.1   - Added commit comment generation<br>

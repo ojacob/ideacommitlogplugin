@@ -51,7 +51,7 @@ public class CommitLogProjectComponent extends CheckinHandlerFactory
   public static final String COMPONENT_NAME = "CommitLogProjectComponent";
   private CommitLogConfigurationPanel _configurationPanel;
   private boolean _generateTextualCommitLog = true;
-  public static final String VERSION = "1.2";
+  public static final String VERSION = "1.2.1";
   private static AnAction _generateCommentAction;
   private boolean _focusCommentTemplateEditor;
 

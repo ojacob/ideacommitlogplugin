@@ -208,7 +208,9 @@ class CommitLogCheckinHandler extends CheckinHandler
         final VcsHistorySession session = historyProvider.createSessionFor(filePath);
         if (session != null) {
           if (!session.getRevisionList().isEmpty()) {
-            version = session.getCurrentRevisionNumber().asString();
+            VcsRevisionNumber currentRevisionNumber = session.getCurrentRevisionNumber();
+            if (currentRevisionNumber != null)
+              version = currentRevisionNumber.asString();
           }
         }
       }
